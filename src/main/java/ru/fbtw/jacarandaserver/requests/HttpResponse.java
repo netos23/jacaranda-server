@@ -1,4 +1,4 @@
-package ru.fbtw.jacarndaserver.requests;
+package ru.fbtw.jacarandaserver.requests;
 
 import java.util.Map;
 
@@ -15,5 +15,7 @@ public class HttpResponse {
         this.body = body;
     }
 
+    public class HttpResponseBuilder{
 
+    }
 }

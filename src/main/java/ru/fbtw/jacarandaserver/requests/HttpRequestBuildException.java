@@ -1,4 +1,4 @@
-package ru.fbtw.jacarndaserver.requests;
+package ru.fbtw.jacarandaserver.requests;
 
 public class HttpRequestBuildException extends Exception {
     public HttpRequestBuildException(String message) {

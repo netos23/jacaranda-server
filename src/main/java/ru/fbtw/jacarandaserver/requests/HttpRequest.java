@@ -1,11 +1,13 @@
-package ru.fbtw.jacarndaserver.requests;
+package ru.fbtw.jacarandaserver.requests;
 
-import ru.fbtw.jacarndaserver.server.ServerContext;
+import ru.fbtw.jacarandaserver.io.InputReader;
+import ru.fbtw.jacarandaserver.server.ServerContext;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Scanner;
 
 public class HttpRequest {
     private Url url;
@@ -18,36 +20,57 @@ public class HttpRequest {
         headers = new HashMap<>();
     }
 
+    public static HttpRequest parse(InputStream is, ServerContext context) throws HttpRequestBuildException {
+
+        return parse(new InputReader(is), context);
+    }
+
     public static HttpRequest parse(String request, ServerContext context) throws HttpRequestBuildException {
-        Scanner sc = new Scanner(request);
-        HttpRequestBuilder builder = newBuilder();
+        return parse(new InputReader(request), context);
+    }
 
-        // read method
-        HttpMethod method = HttpMethod.valueOfOrDefault(sc.next(), HttpMethod.UNSUPPORTED);
-        // read cp
-        String contextPath = sc.next();
-        // parse url
-        Url url = new Url(context.getProtocol(), context.getHost(), contextPath);
-        // read http version
-        String httpVer = sc.next();
-        // parse headers
-        Map<String, String> headers = new HashMap<>();
-        // skip empty line
-        sc.nextLine();
-        while (sc.hasNext()) {
-            String rawHeader = sc.nextLine();
-            int delimiterIndex = rawHeader.indexOf(':');
-            String headerName = rawHeader.substring(0, delimiterIndex);
-            String headerValue = rawHeader.substring(delimiterIndex + 1).trim();
-            headers.put(headerName, headerValue);
+    private static HttpRequest parse(InputReader sc, ServerContext context) throws HttpRequestBuildException {
+        try {
+            // read method
+            HttpMethod method = HttpMethod.valueOfOrDefault(sc.next(), HttpMethod.UNSUPPORTED);
+            // read cp
+            String contextPath = sc.next();
+            // parse url
+            Url url = new Url(context.getProtocol(), null, context.getHost(), contextPath);
+            // read http version
+            String httpVer = sc.next();
+            // parse headers
+            Map<String, String> headers = new HashMap<>();
+            // skip empty line
+
+            String rawHeader = null;
+            while ((rawHeader = sc.nextLine()) != null && !rawHeader.isEmpty()) {
+                int delimiterIndex = rawHeader.indexOf(':');
+                String headerName = rawHeader.substring(0, delimiterIndex);
+                String headerValue = rawHeader.substring(delimiterIndex + 1).trim();
+                headers.put(headerName, headerValue);
+            }
+
+            String body = null;
+            if (method == HttpMethod.POST && headers.containsKey("Content-Length")) {
+                char[] buffer = new char[Integer.parseInt(headers.get("Content-Length"))];
+                sc.readBuffer(buffer);
+                body = new String(buffer);
+            }
+
+            return newBuilder()
+                    .setMethod(method)
+                    .setUrl(url)
+                    .setHttpVersion(httpVer)
+                    .addHeaders(headers)
+                    .setBody(body)
+                    .build();
+
+        } catch (IOException ioException) {
+            throw new HttpRequestBuildException("Error occurred during read request", ioException);
+        } catch (Exception ex) {
+            throw new HttpRequestBuildException("Unknown Error during parsing", ex);
         }
-
-        return builder
-                .setMethod(method)
-                .setUrl(url)
-                .setHttpVersion(httpVer)
-                .addHeaders(headers)
-                .build();
     }
 
     public static HttpRequestBuilder newBuilder() {

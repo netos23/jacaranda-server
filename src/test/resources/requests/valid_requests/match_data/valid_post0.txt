@@ -1,0 +1,21 @@
+POST
+/send-message.html
+0
+HTTP/1.1
+7
+Host
+mail.example.com
+Referer
+http://mail.example.com/send-message.html
+User-Agent
+BrowserForDummies/4.67b
+Content-Type
+application/json; text/json
+Content-Length
+15
+Connection
+keep-alive
+Keep-Alive
+300
+true
+{"pipo":"sdsd"}

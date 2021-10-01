@@ -1,0 +1,16 @@
+GET
+/send-message.html
+2
+query sdsds
+sds name
+HTTP/1.1
+4
+Host
+mail.example.com
+User-Agent
+TestBrowser/4.67b
+Connection
+keep-alive
+Keep-Alive
+300
+false
