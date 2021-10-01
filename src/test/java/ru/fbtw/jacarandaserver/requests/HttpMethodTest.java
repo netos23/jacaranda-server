@@ -2,6 +2,7 @@ package ru.fbtw.jacarandaserver.requests;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import ru.fbtw.jacarandaserver.requests.enums.HttpMethod;
 
 class HttpMethodTest {
 

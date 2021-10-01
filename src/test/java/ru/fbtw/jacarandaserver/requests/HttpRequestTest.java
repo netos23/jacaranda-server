@@ -5,6 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import ru.fbtw.jacarandaserver.io.FileReader;
+import ru.fbtw.jacarandaserver.requests.exceptions.HttpRequestBuildException;
 import ru.fbtw.jacarandaserver.server.ServerContext;
 import ru.fbtw.jacarandaserver.test.util.TestReader;
 

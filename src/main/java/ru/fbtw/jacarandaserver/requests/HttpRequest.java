@@ -1,11 +1,15 @@
 package ru.fbtw.jacarandaserver.requests;
 
 import ru.fbtw.jacarandaserver.io.InputReader;
+import ru.fbtw.jacarandaserver.requests.enums.HttpHeader;
+import ru.fbtw.jacarandaserver.requests.enums.HttpMethod;
+import ru.fbtw.jacarandaserver.requests.exceptions.HttpRequestBuildException;
 import ru.fbtw.jacarandaserver.server.ServerContext;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -21,7 +25,6 @@ public class HttpRequest {
     }
 
     public static HttpRequest parse(InputStream is, ServerContext context) throws HttpRequestBuildException {
-
         return parse(new InputReader(is), context);
     }
 
@@ -40,20 +43,18 @@ public class HttpRequest {
             // read http version
             String httpVer = sc.next();
             // parse headers
+            String rawHeader;
             Map<String, String> headers = new HashMap<>();
-            // skip empty line
-
-            String rawHeader = null;
             while ((rawHeader = sc.nextLine()) != null && !rawHeader.isEmpty()) {
                 int delimiterIndex = rawHeader.indexOf(':');
                 String headerName = rawHeader.substring(0, delimiterIndex);
                 String headerValue = rawHeader.substring(delimiterIndex + 1).trim();
                 headers.put(headerName, headerValue);
             }
-
+            // parse body
             String body = null;
-            if (method == HttpMethod.POST && headers.containsKey("Content-Length")) {
-                char[] buffer = new char[Integer.parseInt(headers.get("Content-Length"))];
+            if (method == HttpMethod.POST && headers.containsKey(HttpHeader.CONTENT_LENGTH.getName())) {
+                char[] buffer = new char[Integer.parseInt(headers.get(HttpHeader.CONTENT_LENGTH.getName()))];
                 sc.readBuffer(buffer);
                 body = new String(buffer);
             }
@@ -66,10 +67,12 @@ public class HttpRequest {
                     .setBody(body)
                     .build();
 
-        } catch (IOException ioException) {
-            throw new HttpRequestBuildException("Error occurred during read request", ioException);
+        } catch (IOException ex) {
+            throw new HttpRequestBuildException("An error occurred during request reading ", ex);
+        } catch (HttpRequestBuildException ex) {
+            throw ex;
         } catch (Exception ex) {
-            throw new HttpRequestBuildException("Unknown Error during parsing", ex);
+            throw new HttpRequestBuildException("An unknown Error occurred during request parsing", ex);
         }
     }
 
@@ -156,6 +159,15 @@ public class HttpRequest {
 
                 String message = String.format("One or more required fields null: " +
                         "Url: %s, HTTP version: %s, HTTP method: %s", url, httpVersion, method);
+
+                throw new HttpRequestBuildException(message);
+            }
+
+            if (!httpVersion
+                    .toUpperCase(Locale.ROOT)
+                    .matches("HTTP/\\d\\.\\d")) {
+
+                String message = String.format("%s - wrong http version", httpVersion);
 
                 throw new HttpRequestBuildException(message);
             }

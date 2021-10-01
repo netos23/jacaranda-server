@@ -25,7 +25,7 @@ public class HttpServer {
         while (true) {
             Socket clientSocket = mainSocket.accept();
             ConnectionHandler handler = new ConnectionHandler(clientSocket, context);
-            handler.run();
+            executor.execute(handler);
         }
     }
 

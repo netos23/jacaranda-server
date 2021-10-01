@@ -24,6 +24,8 @@ public class Url {
         this();
         this.protocol = protocol;
 
+
+
         int portSeparator;
         if ((portSeparator = host.indexOf(':')) >= 0) {
             this.host = host.substring(0, portSeparator);

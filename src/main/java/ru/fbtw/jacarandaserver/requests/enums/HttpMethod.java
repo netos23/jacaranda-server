@@ -1,4 +1,4 @@
-package ru.fbtw.jacarandaserver.requests;
+package ru.fbtw.jacarandaserver.requests.enums;
 
 import java.util.Locale;
 

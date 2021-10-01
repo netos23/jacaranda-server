@@ -1,9 +1,9 @@
 package ru.fbtw.jacarandaserver.test.util;
 
 import ru.fbtw.jacarandaserver.io.FileReader;
-import ru.fbtw.jacarandaserver.requests.HttpMethod;
+import ru.fbtw.jacarandaserver.requests.enums.HttpMethod;
 import ru.fbtw.jacarandaserver.requests.HttpRequest;
-import ru.fbtw.jacarandaserver.requests.HttpRequestBuildException;
+import ru.fbtw.jacarandaserver.requests.exceptions.HttpRequestBuildException;
 import ru.fbtw.jacarandaserver.requests.Url;
 import ru.fbtw.jacarandaserver.server.ServerContext;
 
