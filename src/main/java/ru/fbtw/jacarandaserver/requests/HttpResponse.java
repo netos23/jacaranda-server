@@ -46,8 +46,11 @@ public class HttpResponse {
         writer.println();
         // write body
         writer.flush();
-        out.write(body);
-        out.flush();
+
+        if(body != null) {
+            out.write(body);
+            out.flush();
+        }
     }
 
     public String getHttpVersion() {

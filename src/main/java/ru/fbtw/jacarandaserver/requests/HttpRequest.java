@@ -53,8 +53,8 @@ public class HttpRequest {
             }
             // parse body
             String body = null;
-            if (method == HttpMethod.POST && headers.containsKey(HttpHeader.CONTENT_LENGTH.getName())) {
-                char[] buffer = new char[Integer.parseInt(headers.get(HttpHeader.CONTENT_LENGTH.getName()))];
+            if (headers.containsKey(HttpHeader.CONTENT_LENGTH.getHeaderName())) {
+                char[] buffer = new char[Integer.parseInt(headers.get(HttpHeader.CONTENT_LENGTH.getHeaderName()))];
                 sc.readBuffer(buffer);
                 body = new String(buffer);
             }
@@ -101,7 +101,7 @@ public class HttpRequest {
     }
 
     public String getHeader(String header) {
-        return headers.get(header);
+        return headers.getOrDefault(header, null);
     }
 
 

@@ -34,8 +34,8 @@ public class GetRequestHandler implements RequestHandler {
         String contentType = fileHandler.getContentType(file);
         byte[] responseBody = fileHandler.handle(file);
 
-        responseBuilder.addHeader(HttpHeader.CONTENT_TYPE.getName(), contentType);
-        responseBuilder.addHeader(HttpHeader.CONTENT_LENGTH.getName(), Integer.toString(responseBody.length));
+        responseBuilder.addHeader(HttpHeader.CONTENT_TYPE.getHeaderName(), contentType);
+        responseBuilder.addHeader(HttpHeader.CONTENT_LENGTH.getHeaderName(), Integer.toString(responseBody.length));
         responseBuilder.setBody(responseBody);
     }
 }

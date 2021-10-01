@@ -7,18 +7,19 @@ public enum HttpHeader {
     CONTENT_LENGTH("Content-Length", Target.BOTH),
     CONTENT_TYPE("Content-Type", Target.BOTH),
     CONNECTION("Connection", Target.BOTH),
-    KEEP_ALIVE("Keep-alive",Target.BOTH);
+    KEEP_ALIVE("Keep-alive", Target.BOTH),
+    SERVER("Server", Target.RESPONSE);
 
-    private final String name;
+    private final String headerName;
     private final Target target;
 
-    HttpHeader(String name, Target target) {
-        this.name = name;
+    HttpHeader(String headerName, Target target) {
+        this.headerName = headerName;
         this.target = target;
     }
 
-    public String getName() {
-        return name;
+    public String getHeaderName() {
+        return headerName;
     }
 
     public static HttpHeader getOrDefault(final String name, final HttpHeader defVal) {

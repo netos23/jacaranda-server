@@ -1,6 +1,8 @@
 package ru.fbtw.jacarandaserver.handlers;
 
-import ru.fbtw.jacarandaserver.requests.*;
+import ru.fbtw.jacarandaserver.requests.HttpRequest;
+import ru.fbtw.jacarandaserver.requests.HttpResponse;
+import ru.fbtw.jacarandaserver.requests.Url;
 import ru.fbtw.jacarandaserver.requests.enums.HttpHeader;
 import ru.fbtw.jacarandaserver.requests.enums.HttpStatus;
 import ru.fbtw.jacarandaserver.requests.exceptions.BadRequestException;
@@ -12,7 +14,7 @@ public interface RequestHandler {
 
     default void validateRequest(ServerContext context, HttpRequest request) throws BadRequestException {
         if (!request.getHeaders()
-                .containsKey(HttpHeader.HOST.getName())) {
+                .containsKey(HttpHeader.HOST.getHeaderName())) {
             throw new BadRequestException("Missing host header. HTTP/1.1 condition violated");
         }
     }
@@ -23,8 +25,17 @@ public interface RequestHandler {
             HttpResponse.HttpResponseBuilder responseBuilder
     ) {
         responseBuilder.setHttpVersion(context.getHttpVersion());
-        responseBuilder.addHeader(HttpHeader.CONNECTION.name(),"keep-alive");
-        responseBuilder.addHeader(HttpHeader.KEEP_ALIVE.name(),"500");
+        responseBuilder.addHeader(HttpHeader.SERVER.getHeaderName(), context.getServerName());
+
+
+        String connectionPolicy = request != null
+                ? request.getHeader(HttpHeader.CONNECTION.getHeaderName())
+                : null;
+        if (connectionPolicy != null && connectionPolicy.equals("keep-alive")) {
+            responseBuilder.addHeader(HttpHeader.CONNECTION.getHeaderName(), "keep-alive");
+        } else {
+            responseBuilder.addHeader(HttpHeader.CONNECTION.getHeaderName(), "close");
+        }
     }
 
     default void handleUrl(

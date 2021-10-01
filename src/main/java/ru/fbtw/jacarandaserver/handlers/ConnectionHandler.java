@@ -1,15 +1,15 @@
 package ru.fbtw.jacarandaserver.handlers;
 
-import ru.fbtw.jacarandaserver.requests.HttpRequest;
-import ru.fbtw.jacarandaserver.requests.exceptions.HttpRequestBuildException;
-import ru.fbtw.jacarandaserver.requests.HttpResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.fbtw.jacarandaserver.server.ServerContext;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 
 public class ConnectionHandler implements Runnable {
+    private static final Logger logger = LoggerFactory.getLogger(ConnectionHandler.class);
+
     private final Socket clientSocket;
     private final RequestDispatcher requestDispatcher;
 
@@ -20,10 +20,14 @@ public class ConnectionHandler implements Runnable {
 
     @Override
     public void run() {
+        logger.info("Handle new connection: {}", clientSocket.getInetAddress());
         try {
-            requestDispatcher.dispatch(clientSocket);
-            //clientSocket.close();
+            boolean isOpened;
+            do {
+                isOpened = requestDispatcher.dispatch(clientSocket);
+            } while (isOpened);
         } catch (IOException e) {
+            logger.error("Read-Write exception: client reject connection: {}", e.getMessage());
             e.printStackTrace();
         }
     }
