@@ -8,7 +8,8 @@ public enum HttpHeader {
     CONTENT_TYPE("Content-Type", Target.BOTH),
     CONNECTION("Connection", Target.BOTH),
     KEEP_ALIVE("Keep-alive", Target.BOTH),
-    SERVER("Server", Target.RESPONSE);
+    SERVER("Server", Target.RESPONSE),
+    DATE("Date", Target.BOTH);
 
     private final String headerName;
     private final Target target;

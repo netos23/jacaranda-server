@@ -8,16 +8,15 @@ import ru.fbtw.jacarandaserver.server.ServerContext;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 public class FileHandler {
     private static final Logger logger = LoggerFactory.getLogger(FileHandler.class);
 
     private final String initialPath;
-    private final ServerContext context;
 
     public FileHandler(ServerContext context) {
-        this.context = context;
         this.initialPath = context.getPath();
     }
 
@@ -29,20 +28,13 @@ public class FileHandler {
     public byte[] handle(File srcFile) throws ResurseNotFoundException {
         try {
             logger.debug("Reading file: {}", srcFile);
-            String s = FileReader.readFile(srcFile);
+            return FileReader.readAllBytes(srcFile);
 
-            return s.getBytes(StandardCharsets.UTF_8);
-
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             logger.error("File not found: {}", e.getMessage());
             e.printStackTrace();
 
             throw new ResurseNotFoundException("File not found", e);
         }
-    }
-
-    public String getContentType(File file) {
-        // todo: implement
-        return "text/html";
     }
 }

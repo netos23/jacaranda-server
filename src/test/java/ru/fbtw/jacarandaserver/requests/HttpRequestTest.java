@@ -73,7 +73,7 @@ class HttpRequestTest {
             try {
                 String test = FileReader.readFile(testFile);
                 res.add(Arguments.of(test, testName));
-            } catch (FileNotFoundException e) {
+            } catch (IOException e) {
                 //todo log there
                 e.printStackTrace();
             }

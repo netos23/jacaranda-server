@@ -5,7 +5,8 @@ public class ServerContext {
             new ServerContext(
                     "http", "127.0.0.1", ".",
                     8080, 100, "HTTP/1.1",
-                    "", "",
+                    "classpath:templates/error.html",
+                    "classpath:templates/dirinfo.html",
                     "jacaranda server/0.1.0 (Unix) (Mac os)");
 
     private final String protocol;
@@ -38,6 +39,14 @@ public class ServerContext {
         this.errorTemplate = errorTemplate;
         this.dirInfoTemplate = dirInfoTemplate;
         this.serverName = serverName;
+    }
+
+    public String getErrorTemplate() {
+        return errorTemplate;
+    }
+
+    public String getDirInfoTemplate() {
+        return dirInfoTemplate;
     }
 
     public String getPath() {

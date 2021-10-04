@@ -1,26 +1,32 @@
 package ru.fbtw.jacarandaserver.io;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class FileReader {
-    public static String readAllStrings(Scanner in) {
-        StringBuilder builder = new StringBuilder();
-        boolean eof = in.hasNext();
+    private static final int BUFFER_SIZE = 100;
 
-        while (eof) {
-            builder.append(in.nextLine());
-            eof = in.hasNext();
-            if (eof) {
-                builder.append('\n');
-            }
+    public static String readAllStrings(BufferedReader in) throws IOException {
+        StringBuilder builder = new StringBuilder();
+        char[] buf = new char[BUFFER_SIZE];
+        int readBytes;
+        while ((readBytes = in.read(buf)) != -1) {
+            builder.append(buf, 0, readBytes);
         }
         return builder.toString();
     }
 
-    public static String readFile(File src) throws FileNotFoundException {
-        Scanner in = new Scanner(src);
-        return readAllStrings(in);
+    public static byte[] readAllBytes(File file) throws IOException {
+        FileInputStream fileInputStream = new FileInputStream(file);
+        byte[] bytes = new byte[fileInputStream.available()];
+        int read = fileInputStream.read(bytes, 0, bytes.length);
+        return bytes;
+    }
+
+    public static String readFile(File src) throws IOException {
+        BufferedReader reader = new BufferedReader(new java.io.FileReader(src));
+        return readAllStrings(reader);
     }
 }

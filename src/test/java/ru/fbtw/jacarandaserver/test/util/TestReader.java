@@ -1,10 +1,9 @@
 package ru.fbtw.jacarandaserver.test.util;
 
-import ru.fbtw.jacarandaserver.io.FileReader;
-import ru.fbtw.jacarandaserver.requests.enums.HttpMethod;
 import ru.fbtw.jacarandaserver.requests.HttpRequest;
-import ru.fbtw.jacarandaserver.requests.exceptions.HttpRequestBuildException;
 import ru.fbtw.jacarandaserver.requests.Url;
+import ru.fbtw.jacarandaserver.requests.enums.HttpMethod;
+import ru.fbtw.jacarandaserver.requests.exceptions.HttpRequestBuildException;
 import ru.fbtw.jacarandaserver.server.ServerContext;
 
 import java.io.File;
@@ -41,10 +40,15 @@ public class TestReader {
         }
 
         boolean hasBody = in.nextBoolean();
-        String body =  null;
-        if(hasBody) {
+        StringBuilder body = new StringBuilder();
+        if (hasBody) {
             in.nextLine();
-            body = FileReader.readAllStrings(in);
+            while (in.hasNext()) {
+                body.append(in.nextLine());
+                if (in.hasNext()) {
+                    body.append('\n');
+                }
+            }
         }
 
         return HttpRequest.newBuilder()
@@ -52,7 +56,7 @@ public class TestReader {
                 .setHttpVersion(httpVersion)
                 .setMethod(method)
                 .addHeaders(headers)
-                .setBody(body)
+                .setBody(hasBody ? body.toString() : null)
                 .build();
     }
 

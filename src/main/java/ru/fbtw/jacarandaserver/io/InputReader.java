@@ -1,6 +1,7 @@
 package ru.fbtw.jacarandaserver.io;
 
 import java.io.*;
+import java.io.FileReader;
 import java.util.StringTokenizer;
 
 public class InputReader {
@@ -20,13 +21,22 @@ public class InputReader {
         this(new BufferedReader(new InputStreamReader(is)));
     }
 
+    public InputReader(File file) throws FileNotFoundException {
+        this(new BufferedReader(new FileReader(file)));
+    }
+
     public int readBuffer(char[] buffer) throws IOException {
         return reader.read(buffer);
     }
 
     public String next() throws IOException {
         while (tokenizer == null || !tokenizer.hasMoreTokens()) {
-            tokenizer = new StringTokenizer(reader.readLine());
+            try {
+                tokenizer = new StringTokenizer(reader.readLine());
+            } catch (NullPointerException ex) {
+
+            }
+
         }
         return tokenizer.nextToken();
     }

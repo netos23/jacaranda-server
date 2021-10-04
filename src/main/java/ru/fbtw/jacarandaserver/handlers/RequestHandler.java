@@ -3,8 +3,6 @@ package ru.fbtw.jacarandaserver.handlers;
 import ru.fbtw.jacarandaserver.requests.HttpRequest;
 import ru.fbtw.jacarandaserver.requests.HttpResponse;
 import ru.fbtw.jacarandaserver.requests.Url;
-import ru.fbtw.jacarandaserver.requests.enums.HttpHeader;
-import ru.fbtw.jacarandaserver.requests.enums.HttpStatus;
 import ru.fbtw.jacarandaserver.requests.exceptions.BadRequestException;
 import ru.fbtw.jacarandaserver.server.ServerContext;
 
@@ -12,63 +10,39 @@ import java.util.Map;
 
 public interface RequestHandler {
 
-    default void validateRequest(ServerContext context, HttpRequest request) throws BadRequestException {
-        if (!request.getHeaders()
-                .containsKey(HttpHeader.HOST.getHeaderName())) {
-            throw new BadRequestException("Missing host header. HTTP/1.1 condition violated");
-        }
-    }
+    void validateRequest(ServerContext context, HttpRequest request) throws BadRequestException;
 
-    default void setServerConfiguration(
+    void setServerConfiguration(
             ServerContext context,
             HttpRequest request,
             HttpResponse.HttpResponseBuilder responseBuilder
-    ) {
-        responseBuilder.setHttpVersion(context.getHttpVersion());
-        responseBuilder.addHeader(HttpHeader.SERVER.getHeaderName(), context.getServerName());
+    ) throws BadRequestException;
 
-
-        String connectionPolicy = request != null
-                ? request.getHeader(HttpHeader.CONNECTION.getHeaderName())
-                : null;
-        if (connectionPolicy != null && connectionPolicy.equals("keep-alive")) {
-            responseBuilder.addHeader(HttpHeader.CONNECTION.getHeaderName(), "keep-alive");
-        } else {
-            responseBuilder.addHeader(HttpHeader.CONNECTION.getHeaderName(), "close");
-        }
-    }
-
-    default void handleUrl(
+    void handleUrl(
             Url url,
             HttpRequest request,
             HttpResponse.HttpResponseBuilder responseBuilder
-    ) throws BadRequestException {
-    }
+    ) throws BadRequestException;
 
-    default void handleQueryParams(
+    void handleQueryParams(
             Map<String, String> queryParams,
             HttpRequest request,
             HttpResponse.HttpResponseBuilder responseBuilder
-    ) throws BadRequestException {
-    }
+    ) throws BadRequestException;
 
-    default void handleHeaders(
+    void handleHeaders(
             Map<String, String> headers,
             HttpRequest request,
             HttpResponse.HttpResponseBuilder responseBuilder
-    ) throws BadRequestException {
-    }
+    ) throws BadRequestException;
 
-    default void handleBody(
+    void handleBody(
             String body,
             HttpRequest request,
             HttpResponse.HttpResponseBuilder responseBuilder
-    ) {
-    }
+    ) throws BadRequestException;
 
-    default void setStatus(HttpRequest request, HttpResponse.HttpResponseBuilder responseBuilder) {
-        responseBuilder.setStatus(HttpStatus.OK);
-    }
+    void setStatus(HttpRequest request, HttpResponse.HttpResponseBuilder responseBuilder);
 
     default HttpResponse handle(ServerContext context, HttpRequest request) throws BadRequestException {
         validateRequest(context, request);
@@ -79,6 +53,7 @@ public interface RequestHandler {
         handleQueryParams(request.getUrl().getQueryParams(), request, responseBuilder);
         handleHeaders(request.getHeaders(), request, responseBuilder);
         handleBody(request.getBody(), request, responseBuilder);
+
         setStatus(request, responseBuilder);
 
         return responseBuilder.build();

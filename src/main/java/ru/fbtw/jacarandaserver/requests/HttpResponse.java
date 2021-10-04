@@ -44,7 +44,7 @@ public class HttpResponse {
         }
         // write empty line as body separator
         writer.println();
-        // write body
+        // write response status and headers
         writer.flush();
 
         if(body != null) {
