@@ -4,12 +4,13 @@ body {
     background-color: #a766e0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, a {
     color: white;
 }
 
 .content {
-
+    padding: 5vh 7vw;
+    align-content: center;
 }
 
 .title {
@@ -17,5 +18,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .logo {
-    width: 100vw;
+    width: 80vw;
+    height: 80vh;
+    align-content: center;
 }

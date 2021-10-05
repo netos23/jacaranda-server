@@ -30,6 +30,7 @@ public class HttpResponse {
         return new HttpResponse().new HttpResponseBuilder();
     }
 
+
     public void write(OutputStream out) throws IOException {
         PrintWriter writer = new PrintWriter(out);
 
@@ -47,7 +48,7 @@ public class HttpResponse {
         // write response status and headers
         writer.flush();
 
-        if(body != null) {
+        if (body != null) {
             out.write(body);
             out.flush();
         }
@@ -65,6 +66,10 @@ public class HttpResponse {
         return headers;
     }
 
+    public String getHeader(String header) {
+        return headers.get(header);
+    }
+
     public byte[] getBody() {
         return body;
     }
@@ -72,6 +77,26 @@ public class HttpResponse {
     public class HttpResponseBuilder {
 
         private HttpResponseBuilder() {
+        }
+
+        public String getHttpVersion() {
+            return httpVersion;
+        }
+
+        public HttpStatus getStatus() {
+            return status;
+        }
+
+        public Map<String, String> getHeaders() {
+            return headers;
+        }
+
+        public String getHeader(String header) {
+            return headers.get(header);
+        }
+
+        public byte[] getBody() {
+            return body;
         }
 
         public HttpResponseBuilder setHttpVersion(String httpVersion) {
@@ -97,5 +122,7 @@ public class HttpResponse {
         public HttpResponse build() {
             return HttpResponse.this;
         }
+
+
     }
 }

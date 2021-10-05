@@ -8,13 +8,14 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class HttpServer {
     private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
 
     private final ServerSocket mainSocket;
-    private final Executor executor;
+    private final ExecutorService executor;
     private final ServerContext context;
 
 
@@ -28,7 +29,7 @@ public class HttpServer {
         logger.info("Listen up to {} connections", context.getMaxConnections());
     }
 
-    public void listen() throws IOException {
+    public void start() throws IOException {
         logger.info("Server listening port {}", context.getPort());
         while (true) {
             Socket clientSocket = mainSocket.accept();
