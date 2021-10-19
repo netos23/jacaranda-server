@@ -2,12 +2,12 @@ package ru.fbtw.jacarandaserver.core.handlers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.fbtw.jacarandaserver.api.serverlet.RequestHandler;
 import ru.fbtw.jacarandaserver.api.requests.HttpRequest;
 import ru.fbtw.jacarandaserver.api.requests.HttpResponse;
 import ru.fbtw.jacarandaserver.api.requests.enums.HttpHeader;
 import ru.fbtw.jacarandaserver.api.requests.enums.HttpMethod;
 import ru.fbtw.jacarandaserver.api.requests.exceptions.HttpResponseBuildException;
+import ru.fbtw.jacarandaserver.api.serverlet.RequestHandler;
 import ru.fbtw.jacarandaserver.core.server.ServerConfiguration;
 
 import java.io.IOException;
@@ -25,14 +25,13 @@ public class RequestDispatcher {
     public RequestDispatcher(ServerConfiguration context) {
         this.context = context;
         FileHandler fileHandler = new FileHandler(context);
-        ContentTypeResolver contentTypeResolver = new ContentTypeResolver();
 
         handlers = new HashMap<>();
 
-        RequestHandler getHandler = new GetRequestHandler(contentTypeResolver, fileHandler);
-        RequestHandler postHandler = new PostRequestHandler(contentTypeResolver, fileHandler);
-        RequestHandler unsupportedHandler = new UnsupportedRequestHandler(contentTypeResolver, fileHandler);
-        exceptionRequestHandler = new ExceptionRequestHandler(contentTypeResolver, fileHandler, context);
+        RequestHandler getHandler = new GetRequestHandler(fileHandler);
+        RequestHandler postHandler = new PostRequestHandler(fileHandler);
+        RequestHandler unsupportedHandler = new UnsupportedRequestHandler(fileHandler);
+        exceptionRequestHandler = new ExceptionRequestHandler(fileHandler, context);
 
         handlers.put(HttpMethod.GET, getHandler);
         handlers.put(HttpMethod.POST, postHandler);

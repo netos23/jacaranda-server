@@ -6,12 +6,12 @@ import ru.fbtw.jacarandaserver.api.serverlet.AbstractRequestHandler;
 import ru.fbtw.jacarandaserver.core.server.ServerConfiguration;
 
 public class UnsupportedRequestHandler extends AbstractRequestHandler {
-    public UnsupportedRequestHandler(ContentTypeResolver contentTypeResolver, FileHandler fileHandler) {
-        super(contentTypeResolver, fileHandler);
-    }
+	public UnsupportedRequestHandler(FileHandler fileHandler) {
+		super(fileHandler);
+	}
 
-    @Override
-    public void validateRequest(ServerConfiguration context, HttpRequest request) throws BadRequestException {
-        throw new BadRequestException("Request type is wrong");
-    }
+	@Override
+	public void validateRequest(ServerConfiguration context, HttpRequest request) throws BadRequestException {
+		throw new BadRequestException("Request type is wrong");
+	}
 }
