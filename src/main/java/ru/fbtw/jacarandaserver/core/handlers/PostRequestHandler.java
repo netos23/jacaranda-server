@@ -8,7 +8,7 @@ import ru.fbtw.jacarandaserver.core.server.ServerConfiguration;
 
 public class PostRequestHandler extends AbstractRequestHandler {
     public PostRequestHandler(FileHandler fileHandler) {
-        super( fileHandler);
+        super(fileHandler);
     }
 
     @Override

@@ -13,26 +13,26 @@ import java.io.File;
 
 public class GetRequestHandler extends AbstractRequestHandler {
 
-    public GetRequestHandler(FileHandler fileHandler) {
-        super(fileHandler);
-    }
+	public GetRequestHandler(FileHandler fileHandler) {
+		super(fileHandler);
+	}
 
-    @Override
-    public void validateRequest(ServerConfiguration context, HttpRequest request) throws BadRequestException {
-        super.validateRequest(context, request);
-        if (request.getBody() != null) {
-            throw new BadRequestException("Body is not supported in GET request context");
-        }
-    }
+	@Override
+	public void validateRequest(ServerConfiguration context, HttpRequest request) throws BadRequestException {
+		super.validateRequest(context, request);
+		if (request.getBody() != null) {
+			throw new BadRequestException("Body is not supported in GET request context");
+		}
+	}
 
-    @Override
-    public void handleUrl(Url url, HttpRequest request, HttpResponse.HttpResponseBuilder responseBuilder)
-            throws ResourceNotFoundException {
-        // todo: refactor
-        File file = fileHandler.getFile(url.getContextPath());
-        byte[] responseBody = fileHandler.handle(file);
+	@Override
+	public void handleUrl(Url url, HttpRequest request, HttpResponse.HttpResponseBuilder responseBuilder)
+			throws ResourceNotFoundException {
+		// todo: refactor
+		File file = fileHandler.getFile(url.getContextPath());
+		byte[] responseBody = fileHandler.handle(file);
 
-        responseBuilder.addHeader(HttpHeader.CONTENT_LENGTH.getHeaderName(), Integer.toString(responseBody.length));
-        responseBuilder.setBody(responseBody);
-    }
+		responseBuilder.addHeader(HttpHeader.CONTENT_LENGTH.getHeaderName(), Integer.toString(responseBody.length));
+		responseBuilder.setBody(responseBody);
+	}
 }

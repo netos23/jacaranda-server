@@ -8,28 +8,28 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class ConnectionHandler implements Runnable {
-    private static final Logger logger = LoggerFactory.getLogger(ConnectionHandler.class);
+	private static final Logger logger = LoggerFactory.getLogger(ConnectionHandler.class);
 
-    private final Socket clientSocket;
-    private final RequestDispatcher requestDispatcher;
+	private final Socket clientSocket;
+	private final RequestDispatcher requestDispatcher;
 
-    public ConnectionHandler(Socket clientSocket, ServerConfiguration context) {
-        this.clientSocket = clientSocket;
-        requestDispatcher = new RequestDispatcher(context);
-    }
+	public ConnectionHandler(Socket clientSocket, ServerConfiguration context) {
+		this.clientSocket = clientSocket;
+		requestDispatcher = new RequestDispatcher(context);
+	}
 
-    @Override
-    public void run() {
-        logger.info("Handle new connection: {}", clientSocket.getInetAddress());
-        try {
-            boolean isOpened;
-            do {
-                isOpened = requestDispatcher.dispatch(clientSocket);
-            } while (isOpened);
-        } catch (IOException e) {
-            logger.error("Read-Write exception: client reject connection: {}", e.getMessage());
-            e.printStackTrace();
-        }
-    }
+	@Override
+	public void run() {
+		logger.info("Handle new connection: {}", clientSocket.getInetAddress());
+		try {
+			boolean isOpened;
+			do {
+				isOpened = requestDispatcher.dispatch(clientSocket);
+			} while (isOpened);
+		} catch (IOException e) {
+			logger.error("Read-Write exception: client reject connection: {}", e.getMessage());
+			e.printStackTrace();
+		}
+	}
 
 }
