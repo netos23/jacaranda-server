@@ -1,13 +1,12 @@
 package ru.fbtw.jacarandaserver.api.serverlet;
 
-import ru.fbtw.jacarandaserver.api.serverlet.RequestHandler;
 import ru.fbtw.jacarandaserver.api.requests.HttpRequest;
 import ru.fbtw.jacarandaserver.api.requests.HttpResponse;
 import ru.fbtw.jacarandaserver.api.requests.Url;
+import ru.fbtw.jacarandaserver.api.requests.enums.ContentType;
 import ru.fbtw.jacarandaserver.api.requests.enums.HttpHeader;
 import ru.fbtw.jacarandaserver.api.requests.enums.HttpStatus;
 import ru.fbtw.jacarandaserver.api.requests.exceptions.BadRequestException;
-import ru.fbtw.jacarandaserver.core.handlers.ContentTypeResolver;
 import ru.fbtw.jacarandaserver.core.handlers.FileHandler;
 import ru.fbtw.jacarandaserver.core.server.ServerConfiguration;
 
@@ -21,11 +20,9 @@ import java.util.Map;
 public abstract class AbstractRequestHandler implements RequestHandler {
     public static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
 
-    protected final ContentTypeResolver contentTypeResolver;
     protected final FileHandler fileHandler;
 
-    public AbstractRequestHandler(ContentTypeResolver contentTypeResolver, FileHandler fileHandler) {
-        this.contentTypeResolver = contentTypeResolver;
+    public AbstractRequestHandler(FileHandler fileHandler) {
         this.fileHandler = fileHandler;
     }
 
@@ -84,7 +81,7 @@ public abstract class AbstractRequestHandler implements RequestHandler {
             HttpRequest request,
             HttpResponse.HttpResponseBuilder responseBuilder
     ) throws BadRequestException {
-        String contentType = contentTypeResolver.resolve(request.getUrl().getContextPath());
+        String contentType = ContentType.resolve(request.getUrl().getContextPath());
         String contentTypeHeaderVal = String.format("%s; %s", contentType, DEFAULT_CHARSET.name());
         responseBuilder.addHeader(HttpHeader.CONTENT_TYPE.getHeaderName(), contentTypeHeaderVal);
     }

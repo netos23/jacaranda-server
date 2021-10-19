@@ -7,8 +7,8 @@ import ru.fbtw.jacarandaserver.api.serverlet.AbstractRequestHandler;
 import ru.fbtw.jacarandaserver.core.server.ServerConfiguration;
 
 public class PostRequestHandler extends AbstractRequestHandler {
-    public PostRequestHandler(ContentTypeResolver contentTypeResolver, FileHandler fileHandler) {
-        super(contentTypeResolver, fileHandler);
+    public PostRequestHandler(FileHandler fileHandler) {
+        super( fileHandler);
     }
 
     @Override

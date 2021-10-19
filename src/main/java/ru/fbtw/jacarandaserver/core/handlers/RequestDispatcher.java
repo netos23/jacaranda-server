@@ -25,14 +25,13 @@ public class RequestDispatcher {
     public RequestDispatcher(ServerConfiguration context) {
         this.context = context;
         FileHandler fileHandler = new FileHandler(context);
-        ContentTypeResolver contentTypeResolver = new ContentTypeResolver();
 
         handlers = new HashMap<>();
 
-        RequestHandler getHandler = new GetRequestHandler(contentTypeResolver, fileHandler);
-        RequestHandler postHandler = new PostRequestHandler(contentTypeResolver, fileHandler);
-        RequestHandler unsupportedHandler = new UnsupportedRequestHandler(contentTypeResolver, fileHandler);
-        exceptionRequestHandler = new ExceptionRequestHandler(contentTypeResolver, fileHandler, context);
+        RequestHandler getHandler = new GetRequestHandler(fileHandler);
+        RequestHandler postHandler = new PostRequestHandler(fileHandler);
+        RequestHandler unsupportedHandler = new UnsupportedRequestHandler(fileHandler);
+        exceptionRequestHandler = new ExceptionRequestHandler(fileHandler, context);
 
         handlers.put(HttpMethod.GET, getHandler);
         handlers.put(HttpMethod.POST, postHandler);

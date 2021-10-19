@@ -41,4 +41,13 @@ public enum ContentType {
         }
         return Optional.empty();
     }
+
+    public static String resolve(String src) {
+        Optional<ContentType> contentType = ContentType.getContentType(src);
+        if (contentType.isPresent()) {
+            return contentType.get().getValue();
+        } else {
+            return ContentType.HTML.getValue();
+        }
+    }
 }

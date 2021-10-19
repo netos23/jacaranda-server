@@ -6,8 +6,8 @@ import ru.fbtw.jacarandaserver.api.serverlet.AbstractRequestHandler;
 import ru.fbtw.jacarandaserver.core.server.ServerConfiguration;
 
 public class UnsupportedRequestHandler extends AbstractRequestHandler {
-    public UnsupportedRequestHandler(ContentTypeResolver contentTypeResolver, FileHandler fileHandler) {
-        super(contentTypeResolver, fileHandler);
+    public UnsupportedRequestHandler(FileHandler fileHandler) {
+        super(fileHandler);
     }
 
     @Override

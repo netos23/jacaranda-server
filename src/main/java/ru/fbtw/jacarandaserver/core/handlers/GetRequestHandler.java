@@ -13,8 +13,8 @@ import java.io.File;
 
 public class GetRequestHandler extends AbstractRequestHandler {
 
-    public GetRequestHandler(ContentTypeResolver contentTypeResolver, FileHandler fileHandler) {
-        super(contentTypeResolver, fileHandler);
+    public GetRequestHandler(FileHandler fileHandler) {
+        super(fileHandler);
     }
 
     @Override

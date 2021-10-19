@@ -2,13 +2,13 @@ package ru.fbtw.jacarandaserver.core.handlers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.fbtw.jacarandaserver.api.serverlet.AbstractRequestHandler;
-import ru.fbtw.jacarandaserver.core.io.FileReader;
 import ru.fbtw.jacarandaserver.api.requests.HttpRequest;
 import ru.fbtw.jacarandaserver.api.requests.HttpResponse;
 import ru.fbtw.jacarandaserver.api.requests.enums.HttpHeader;
 import ru.fbtw.jacarandaserver.api.requests.enums.HttpStatus;
 import ru.fbtw.jacarandaserver.api.requests.exceptions.*;
+import ru.fbtw.jacarandaserver.api.serverlet.AbstractRequestHandler;
+import ru.fbtw.jacarandaserver.core.io.FileReader;
 import ru.fbtw.jacarandaserver.core.server.ServerConfiguration;
 
 import java.io.File;
@@ -21,11 +21,10 @@ public class ExceptionRequestHandler extends AbstractRequestHandler {
     private final ServerConfiguration context;
 
     public ExceptionRequestHandler(
-            ContentTypeResolver contentTypeResolver,
             FileHandler fileHandler,
             ServerConfiguration context
     ) {
-        super(contentTypeResolver, fileHandler);
+        super(fileHandler);
         this.context = context;
     }
 
