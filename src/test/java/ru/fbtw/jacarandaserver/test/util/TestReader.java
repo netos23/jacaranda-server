@@ -1,10 +1,10 @@
 package ru.fbtw.jacarandaserver.test.util;
 
-import ru.fbtw.jacarandaserver.requests.HttpRequest;
-import ru.fbtw.jacarandaserver.requests.Url;
-import ru.fbtw.jacarandaserver.requests.enums.HttpMethod;
-import ru.fbtw.jacarandaserver.requests.exceptions.HttpRequestBuildException;
-import ru.fbtw.jacarandaserver.server.ServerContext;
+import ru.fbtw.jacarandaserver.api.requests.HttpRequest;
+import ru.fbtw.jacarandaserver.api.requests.Url;
+import ru.fbtw.jacarandaserver.api.requests.enums.HttpMethod;
+import ru.fbtw.jacarandaserver.api.requests.exceptions.HttpRequestBuildException;
+import ru.fbtw.jacarandaserver.core.server.ServerConfiguration;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class TestReader {
-    public static HttpRequest readRequest(File src, ServerContext context)
+    public static HttpRequest readRequest(File src, ServerConfiguration context)
             throws FileNotFoundException, HttpRequestBuildException {
         Scanner in = new Scanner(src);
 
