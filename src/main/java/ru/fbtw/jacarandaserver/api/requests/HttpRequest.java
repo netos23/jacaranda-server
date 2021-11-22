@@ -1,6 +1,6 @@
 package ru.fbtw.jacarandaserver.api.requests;
 
-import ru.fbtw.jacarandaserver.core.io.InputReader;
+import ru.fbtw.jacarandaserver.io.InputReader;
 import ru.fbtw.jacarandaserver.api.requests.enums.HttpHeader;
 import ru.fbtw.jacarandaserver.api.requests.enums.HttpMethod;
 import ru.fbtw.jacarandaserver.api.requests.exceptions.HttpRequestBuildException;

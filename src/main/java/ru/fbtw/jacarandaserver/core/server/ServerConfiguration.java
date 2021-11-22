@@ -1,7 +1,14 @@
 package ru.fbtw.jacarandaserver.core.server;
 
+import ru.fbtw.jacarandaserver.configuration.annotations.ConfigName;
+import ru.fbtw.jacarandaserver.configuration.annotations.Configuration;
+import ru.fbtw.jacarandaserver.configuration.annotations.DefaultConfiguration;
+
+@Configuration(name = "server-config")
 public class ServerConfiguration {
-	public static final ServerConfiguration DEFAULT_CONTEXT =
+
+	@DefaultConfiguration(target = "server-config")
+	public static final ServerConfiguration DEFAULT_CONFIG =
 			new ServerConfiguration(
 					"http", "127.0.0.1", ".",
 					8080, 100, "HTTP/1.1",
@@ -9,17 +16,38 @@ public class ServerConfiguration {
 					"classpath:templates/dirinfo.html",
 					"jacaranda server/0.1.0 (Unix) (Mac os)");
 
-	private final String protocol;
-	private final String host;
-	private final String path;
-	private final int port;
-	private final int maxConnections;
-	private final String httpVersion;
-	private final String errorTemplate;
-	private final String dirInfoTemplate;
-	private final String serverName;
+	@ConfigName(name = "protocol")
+	private String protocol;
 
-	public ServerConfiguration(
+	@ConfigName(name = "host")
+	private String host;
+
+	@ConfigName(name = "path")
+	private String path;
+
+	@ConfigName(name = "port")
+	private Integer port;
+
+	@ConfigName(name = "max-connections")
+	private Integer maxConnections;
+
+	@ConfigName(name = "http-ver")
+	private String httpVersion;
+
+	@ConfigName(name = "error-template")
+	private String errorTemplate;
+
+	@ConfigName(name = "dir-info-template")
+	private String dirInfoTemplate;
+
+	@ConfigName(name = "server-name")
+	private String serverName;
+
+	public ServerConfiguration() {
+	}
+
+
+	private ServerConfiguration(
 			String protocol,
 			String host,
 			String path,
