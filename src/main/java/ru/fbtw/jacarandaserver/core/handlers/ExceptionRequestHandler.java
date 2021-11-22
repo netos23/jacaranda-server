@@ -3,7 +3,7 @@ package ru.fbtw.jacarandaserver.core.handlers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.fbtw.jacarandaserver.api.serverlet.AbstractRequestHandler;
-import ru.fbtw.jacarandaserver.core.io.FileReader;
+import ru.fbtw.jacarandaserver.io.IOUtils;
 import ru.fbtw.jacarandaserver.api.requests.HttpRequest;
 import ru.fbtw.jacarandaserver.api.requests.HttpResponse;
 import ru.fbtw.jacarandaserver.api.requests.enums.HttpHeader;
@@ -45,7 +45,7 @@ public class ExceptionRequestHandler extends AbstractRequestHandler {
         }
 
         try {
-            String template = FileReader.readAllStrings(new File(context.getErrorTemplate()));
+            String template = IOUtils.readAllStrings(new File(context.getErrorTemplate()));
             String body = String.format(template, status.getCode(), status.name());
             byte[] byteBody = body.getBytes(StandardCharsets.UTF_8);
 

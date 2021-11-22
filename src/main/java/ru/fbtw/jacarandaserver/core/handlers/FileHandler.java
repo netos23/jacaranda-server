@@ -2,7 +2,7 @@ package ru.fbtw.jacarandaserver.core.handlers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.fbtw.jacarandaserver.core.io.FileReader;
+import ru.fbtw.jacarandaserver.io.IOUtils;
 import ru.fbtw.jacarandaserver.api.requests.exceptions.ResourceNotFoundException;
 import ru.fbtw.jacarandaserver.core.server.ServerConfiguration;
 
@@ -30,7 +30,7 @@ public class FileHandler {
         try {
             if (srcFile.isDirectory()) {
                 File templateFile = new File(context.getDirInfoTemplate());
-                String template = FileReader.readAllStrings(templateFile);
+                String template = IOUtils.readAllStrings(templateFile);
 
                 StringBuilder builder = new StringBuilder();
                 // todo: check null
@@ -42,7 +42,7 @@ public class FileHandler {
                         .getBytes(StandardCharsets.UTF_8);
             } else {
                 logger.debug("Reading file: {}", srcFile);
-                return FileReader.readAllBytes(srcFile);
+                return IOUtils.readAllBytes(srcFile);
             }
         } catch (IOException e) {
             logger.error("File not found: {}", e.getMessage());

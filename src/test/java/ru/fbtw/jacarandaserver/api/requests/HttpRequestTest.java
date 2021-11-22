@@ -1,11 +1,10 @@
-package ru.fbtw.jacarandaserver.core.requests;
+package ru.fbtw.jacarandaserver.api.requests;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import ru.fbtw.jacarandaserver.api.requests.HttpRequest;
-import ru.fbtw.jacarandaserver.core.io.FileReader;
+import ru.fbtw.jacarandaserver.io.IOUtils;
 import ru.fbtw.jacarandaserver.api.requests.exceptions.HttpRequestBuildException;
 import ru.fbtw.jacarandaserver.core.server.ServerConfiguration;
 import ru.fbtw.jacarandaserver.test.util.TestReader;
@@ -21,7 +20,7 @@ class HttpRequestTest {
     private static final String INVALID_TEST_PATH = "requests/invalid_requests/";
     private static final String VALID_TEST_PATH = "requests/valid_requests/test/";
     private static final String VALID_MATCH_DATA = "requests/valid_requests/match_data/";
-    private static final ServerConfiguration CONTEXT = ServerConfiguration.DEFAULT_CONTEXT;
+    private static final ServerConfiguration CONTEXT = ServerConfiguration.DEFAULT_CONFIG;
 
     @ParameterizedTest
     @MethodSource("loadValidTests")
@@ -52,7 +51,7 @@ class HttpRequestTest {
             File testFile = TestReader.getResFile(VALID_TEST_PATH + testName);
             File matchDataFile = TestReader.getResFile(VALID_MATCH_DATA + testName);
             try {
-                String test = FileReader.readAllStrings(testFile);
+                String test = IOUtils.readAllStrings(testFile);
                 HttpRequest matchData = TestReader.readRequest(matchDataFile, CONTEXT);
                 res.add(Arguments.of(test, matchData, testName));
             } catch (IOException | HttpRequestBuildException ex) {
@@ -71,7 +70,7 @@ class HttpRequestTest {
         for (String testName : list) {
             File testFile = TestReader.getResFile(INVALID_TEST_PATH + testName);
             try {
-                String test = FileReader.readAllStrings(testFile);
+                String test = IOUtils.readAllStrings(testFile);
                 res.add(Arguments.of(test, testName));
             } catch (IOException e) {
                 //todo log there

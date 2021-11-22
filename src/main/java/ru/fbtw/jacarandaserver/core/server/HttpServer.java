@@ -18,19 +18,20 @@ public class HttpServer {
     private final ServerConfiguration context;
 
 
-    public HttpServer(ServerConfiguration context) throws IOException {
-        this.context = context;
-        logger.info("Initialize jacaranda server with context path: {}; " +
-                "server address: {}; http version: {}", context.getPath(), context.getHost(), context.getHttpVersion());
+    public HttpServer(ServerConfiguration configuration) throws IOException {
+        this.context = configuration;
+        logger.info("Initialize jacaranda server with configuration path: {}; " +
+                "server address: {}; http version: {}",
+                configuration.getPath(), configuration.getHost(), configuration.getHttpVersion());
 
-        mainSocket = new ServerSocket(context.getPort());
-        executor = Executors.newFixedThreadPool(context.getMaxConnections());
-        logger.info("Listen up to {} connections", context.getMaxConnections());
+        mainSocket = new ServerSocket(configuration.getPort());
+        executor = Executors.newFixedThreadPool(configuration.getMaxConnections());
+        logger.info("Listen up to {} connections", configuration.getMaxConnections());
     }
 
     public void start() throws IOException {
         logger.info("Server listening port {}", context.getPort());
-        while (true) {
+        while (!Thread.currentThread().isInterrupted()) {
             Socket clientSocket = mainSocket.accept();
             ConnectionHandler handler = new ConnectionHandler(clientSocket, context);
             executor.execute(handler);

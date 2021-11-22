@@ -1,4 +1,4 @@
-package ru.fbtw.jacarandaserver.core.io;
+package ru.fbtw.jacarandaserver.io;
 
 import java.io.FileReader;
 import java.io.*;
@@ -7,7 +7,7 @@ import java.util.StringTokenizer;
 public class InputReader {
     private final BufferedReader reader;
     private StringTokenizer tokenizer;
-    private boolean hasTimeOut;
+    private final boolean hasTimeOut;
 
     public InputReader(BufferedReader reader, boolean hasTimeOut) {
         this.reader = reader;

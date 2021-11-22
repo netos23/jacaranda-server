@@ -1,79 +1,107 @@
 package ru.fbtw.jacarandaserver.core.server;
 
+import ru.fbtw.jacarandaserver.configuration.annotations.ConfigName;
+import ru.fbtw.jacarandaserver.configuration.annotations.Configuration;
+import ru.fbtw.jacarandaserver.configuration.annotations.DefaultConfiguration;
+
+@Configuration(name = "server-config")
 public class ServerConfiguration {
-    public static final ServerConfiguration DEFAULT_CONTEXT =
-            new ServerConfiguration(
-                    "http", "127.0.0.1", ".",
-                    8080, 100, "HTTP/1.1",
-                    "classpath:templates/error.html",
-                    "classpath:templates/dirinfo.html",
-                    "jacaranda server/0.1.0 (Unix) (Mac os)");
 
-    private final String protocol;
-    private final String host;
-    private final String path;
-    private final int port;
-    private final int maxConnections;
-    private final String httpVersion;
-    private final String errorTemplate;
-    private final String dirInfoTemplate;
-    private final String serverName;
+	@DefaultConfiguration(target = "server-config")
+	public static final ServerConfiguration DEFAULT_CONFIG =
+			new ServerConfiguration(
+					"http", "127.0.0.1", ".",
+					8080, 100, "HTTP/1.1",
+					"classpath:templates/error.html",
+					"classpath:templates/dirinfo.html",
+					"jacaranda server/0.1.0 (Unix) (Mac os)");
 
-    public ServerConfiguration(
-            String protocol,
-            String host,
-            String path,
-            int port,
-            int maxConnections,
-            String httpVersion,
-            String errorTemplate,
-            String dirInfoTemplate,
-            String serverName
-    ) {
-        this.protocol = protocol;
-        this.host = host;
-        this.path = path;
-        this.port = port;
-        this.maxConnections = maxConnections;
-        this.httpVersion = httpVersion;
-        this.errorTemplate = errorTemplate;
-        this.dirInfoTemplate = dirInfoTemplate;
-        this.serverName = serverName;
-    }
+	@ConfigName(name = "protocol")
+	private String protocol;
 
-    public String getErrorTemplate() {
-        return errorTemplate;
-    }
+	@ConfigName(name = "host")
+	private String host;
 
-    public String getDirInfoTemplate() {
-        return dirInfoTemplate;
-    }
+	@ConfigName(name = "path")
+	private String path;
 
-    public String getPath() {
-        return path;
-    }
+	@ConfigName(name = "port")
+	private Integer port;
 
-    public String getProtocol() {
-        return protocol;
-    }
+	@ConfigName(name = "max-connections")
+	private Integer maxConnections;
 
-    public String getHost() {
-        return host;
-    }
+	@ConfigName(name = "http-ver")
+	private String httpVersion;
 
-    public int getPort() {
-        return port;
-    }
+	@ConfigName(name = "error-template")
+	private String errorTemplate;
 
-    public int getMaxConnections() {
-        return maxConnections;
-    }
+	@ConfigName(name = "dir-info-template")
+	private String dirInfoTemplate;
 
-    public String getHttpVersion() {
-        return httpVersion;
-    }
+	@ConfigName(name = "server-name")
+	private String serverName;
 
-    public String getServerName() {
-        return serverName;
-    }
+	public ServerConfiguration() {
+	}
+
+
+	private ServerConfiguration(
+			String protocol,
+			String host,
+			String path,
+			int port,
+			int maxConnections,
+			String httpVersion,
+			String errorTemplate,
+			String dirInfoTemplate,
+			String serverName
+	) {
+		this.protocol = protocol;
+		this.host = host;
+		this.path = path;
+		this.port = port;
+		this.maxConnections = maxConnections;
+		this.httpVersion = httpVersion;
+		this.errorTemplate = errorTemplate;
+		this.dirInfoTemplate = dirInfoTemplate;
+		this.serverName = serverName;
+	}
+
+	public String getErrorTemplate() {
+		return errorTemplate;
+	}
+
+	public String getDirInfoTemplate() {
+		return dirInfoTemplate;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public String getProtocol() {
+		return protocol;
+	}
+
+	public String getHost() {
+		return host;
+	}
+
+	public int getPort() {
+		return port;
+	}
+
+	public int getMaxConnections() {
+		return maxConnections;
+	}
+
+	public String getHttpVersion() {
+		return httpVersion;
+	}
+
+	public String getServerName() {
+		return serverName;
+	}
 }

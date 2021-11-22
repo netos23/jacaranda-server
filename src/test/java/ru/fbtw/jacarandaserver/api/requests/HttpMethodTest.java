@@ -1,4 +1,4 @@
-package ru.fbtw.jacarandaserver.core.requests;
+package ru.fbtw.jacarandaserver.api.requests;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

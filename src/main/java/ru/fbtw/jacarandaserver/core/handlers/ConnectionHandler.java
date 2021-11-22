@@ -13,9 +13,9 @@ public class ConnectionHandler implements Runnable {
     private final Socket clientSocket;
     private final RequestDispatcher requestDispatcher;
 
-    public ConnectionHandler(Socket clientSocket, ServerConfiguration context) {
+    public ConnectionHandler(Socket clientSocket, ServerConfiguration configuration) {
         this.clientSocket = clientSocket;
-        requestDispatcher = new RequestDispatcher(context);
+        requestDispatcher = new RequestDispatcher(configuration);
     }
 
     @Override
