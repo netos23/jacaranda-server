@@ -58,6 +58,10 @@ public class Reflections {
 		return field.getAnnotation(annotation) != null;
 	}
 
+	public static boolean hasAnnotation(Class<? extends Annotation> annotation, Class<?> clazz) {
+		return clazz.getAnnotation(annotation) != null;
+	}
+
 	public static boolean isStatic(Field f) {
 		return Modifier.isStatic(f.getModifiers());
 	}
@@ -114,5 +118,16 @@ public class Reflections {
 			return null;
 		};
 	}
+
+	public static boolean hasInterface(Class<?> clazz, Class<?> interfaceClass) {
+		Class<?>[] interfaces = clazz.getInterfaces();
+		for (Class<?> servletInterface : interfaces) {
+			if (servletInterface.equals(interfaceClass)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 
 }

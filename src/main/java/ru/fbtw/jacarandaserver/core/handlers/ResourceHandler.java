@@ -11,9 +11,9 @@ import ru.fbtw.jacarandaserver.core.server.ServerConfiguration;
 
 import java.io.File;
 
-public class GetRequestHandler extends AbstractRequestHandler {
+public class ResourceHandler extends AbstractRequestHandler {
 
-	public GetRequestHandler(FileHandler fileHandler) {
+	public ResourceHandler(FileHandler fileHandler) {
 		super(fileHandler);
 	}
 

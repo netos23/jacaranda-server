@@ -28,7 +28,7 @@ public class RequestDispatcher {
 
         handlers = new HashMap<>();
 
-        RequestHandler getHandler = new GetRequestHandler(fileHandler);
+        RequestHandler getHandler = new ResourceHandler(fileHandler);
         RequestHandler postHandler = new PostRequestHandler(fileHandler);
         RequestHandler unsupportedHandler = new UnsupportedRequestHandler(fileHandler);
         exceptionRequestHandler = new ExceptionRequestHandler(fileHandler, context);
