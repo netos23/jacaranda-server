@@ -4,7 +4,7 @@ import ru.fbtw.jacarandaserver.api.requests.HttpRequest;
 import ru.fbtw.jacarandaserver.api.requests.Url;
 import ru.fbtw.jacarandaserver.api.requests.enums.HttpMethod;
 import ru.fbtw.jacarandaserver.api.requests.exceptions.HttpRequestBuildException;
-import ru.fbtw.jacarandaserver.core.server.ServerConfiguration;
+import ru.fbtw.jacarandaserver.core.context.configuration.ServerConfiguration;
 
 import java.io.File;
 import java.io.FileNotFoundException;

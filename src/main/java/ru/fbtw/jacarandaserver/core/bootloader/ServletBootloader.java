@@ -2,9 +2,9 @@ package ru.fbtw.jacarandaserver.core.bootloader;
 
 import ru.fbtw.jacarandaserver.api.annotations.WebApplication;
 import ru.fbtw.jacarandaserver.api.serverlet.Servlet;
-import ru.fbtw.jacarandaserver.core.servlet.ServletMappingHandler;
-import ru.fbtw.jacarandaserver.util.PackageScanner;
-import ru.fbtw.jacarandaserver.util.Reflections;
+import ru.fbtw.jacarandaserver.core.context.dispatchers.ServletMappingHandler;
+import ru.fbtw.util.packegescanner.PackageScanner;
+import ru.fbtw.util.reflect.Reflections;
 
 import java.io.File;
 import java.lang.reflect.Constructor;

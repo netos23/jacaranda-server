@@ -6,11 +6,11 @@ import ru.fbtw.jacarandaserver.api.requests.Url;
 import ru.fbtw.jacarandaserver.api.requests.enums.HttpHeader;
 import ru.fbtw.jacarandaserver.api.requests.exceptions.BadRequestException;
 import ru.fbtw.jacarandaserver.api.requests.exceptions.ResourceNotFoundException;
-import ru.fbtw.jacarandaserver.api.serverlet.AbstractRequestHandler;
-import ru.fbtw.jacarandaserver.core.server.ServerConfiguration;
+import ru.fbtw.jacarandaserver.core.context.configuration.ServerConfiguration;
 
 import java.io.File;
 
+@Deprecated
 public class ResourceHandler extends AbstractRequestHandler {
 
 	public ResourceHandler(FileHandler fileHandler) {

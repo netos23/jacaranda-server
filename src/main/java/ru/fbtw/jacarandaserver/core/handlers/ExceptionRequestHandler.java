@@ -7,14 +7,14 @@ import ru.fbtw.jacarandaserver.api.requests.HttpResponse;
 import ru.fbtw.jacarandaserver.api.requests.enums.HttpHeader;
 import ru.fbtw.jacarandaserver.api.requests.enums.HttpStatus;
 import ru.fbtw.jacarandaserver.api.requests.exceptions.*;
-import ru.fbtw.jacarandaserver.api.serverlet.AbstractRequestHandler;
-import ru.fbtw.jacarandaserver.core.server.ServerConfiguration;
-import ru.fbtw.jacarandaserver.io.IOUtils;
+import ru.fbtw.jacarandaserver.core.context.configuration.ServerConfiguration;
+import ru.fbtw.util.io.IOUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
+@Deprecated
 public class ExceptionRequestHandler extends AbstractRequestHandler {
 	private static final Logger logger = LoggerFactory.getLogger(ExceptionRequestHandler.class);
 

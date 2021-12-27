@@ -2,9 +2,9 @@ package ru.fbtw.jacarandaserver.core.handlers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.fbtw.jacarandaserver.io.IOUtils;
+import ru.fbtw.util.io.IOUtils;
 import ru.fbtw.jacarandaserver.api.requests.exceptions.ResourceNotFoundException;
-import ru.fbtw.jacarandaserver.core.server.ServerConfiguration;
+import ru.fbtw.jacarandaserver.core.context.configuration.ServerConfiguration;
 
 import java.io.File;
 import java.io.IOException;
