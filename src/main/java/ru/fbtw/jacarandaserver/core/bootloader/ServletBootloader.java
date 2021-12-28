@@ -3,7 +3,7 @@ package ru.fbtw.jacarandaserver.core.bootloader;
 import ru.fbtw.jacarandaserver.api.annotations.WebApplication;
 import ru.fbtw.jacarandaserver.api.serverlet.Servlet;
 import ru.fbtw.jacarandaserver.core.context.dispatchers.ServletMappingHandler;
-import ru.fbtw.util.packegescanner.PackageScanner;
+import ru.fbtw.util.packegescanner.SimplePackageScanner;
 import ru.fbtw.util.reflect.Reflections;
 
 import java.io.File;
@@ -35,7 +35,7 @@ public class ServletBootloader {
 					this.getClass().getClassLoader()
 			);
 
-			PackageScanner scanner = new PackageScanner(classLoader);
+			SimplePackageScanner scanner = new SimplePackageScanner(classLoader);
 			scanner.scanPackages(packages);
 
 			List<Class<?>> markedClasses = scanner.getMarkedClasses(WebApplication.class);

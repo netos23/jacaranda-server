@@ -3,12 +3,10 @@ package ru.fbtw.util;
 import java.util.Enumeration;
 import java.util.Iterator;
 
-public class EnumerationIterable<T> implements Iterable<T> {
-
+public class IterableAdapter<T> implements Iterable<T> {
 	private final Enumeration<T> enumeration;
 
-	public EnumerationIterable(Enumeration<T> enumeration) {
-
+	public IterableAdapter(Enumeration<T> enumeration) {
 		this.enumeration = enumeration;
 	}
 
