@@ -160,7 +160,7 @@ public final class BeanRegistryLoader {
 			BeenComponent componentConfiguration = beanDeclarationAnnotation
 					.getDeclaredAnnotation(BeenComponent.class);
 
-			if (componentConfiguration.source() == ElementType.TYPE) {
+			if (componentConfiguration != null && componentConfiguration.source() == ElementType.TYPE) {
 				Stream<BeanTemplate> beansStream = beanScanner
 						.getTypesAnnotatedWith(beanDeclarationAnnotation)
 						.stream()

@@ -4,6 +4,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
@@ -21,9 +22,18 @@ public class ClassUtils {
 	}
 
 	public static boolean isList(Type param) {
-		Set<Class<?>> parents = new HashSet<>();
-		ParameterizedType parameterizedType = (ParameterizedType) param;
-		ClassUtils.expandTypes((Class<?>) parameterizedType.getRawType(), parents::add);
+		Set<Class<?>> parents = getParents((ParameterizedType) param);
 		return parents.contains(List.class);
+	}
+
+	public static boolean isMap(Type param) {
+		Set<Class<?>> parents = getParents((ParameterizedType) param);
+		return parents.contains(Map.class);
+	}
+
+	private static Set<Class<?>> getParents(ParameterizedType param) {
+		Set<Class<?>> parents = new HashSet<>();
+		ClassUtils.expandTypes((Class<?>) param.getRawType(), parents::add);
+		return parents;
 	}
 }

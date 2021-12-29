@@ -27,8 +27,8 @@ public class AsciiConverterController {
 	}
 
 	@PostMapping("/")
-	public String convertImage(@RequestParam String base64Image, Model model) {
-		String asciiImage = converterService.convert(base64Image);
+	public String convertImage(@RequestParam(name = "base64Image") List<String> base64Image, Model model) {
+		String asciiImage = converterService.convert(base64Image.get(0));
 		model.addAttribute("image", asciiImage);
 		return "imageView";
 	}

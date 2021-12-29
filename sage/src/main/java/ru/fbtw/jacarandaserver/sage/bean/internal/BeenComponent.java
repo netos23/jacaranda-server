@@ -11,6 +11,4 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface BeenComponent {
 	ElementType source() default ElementType.TYPE;
-
-	Class<?> beanFactory() default PrimitiveFactory.class;
 }

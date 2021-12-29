@@ -4,10 +4,8 @@ import ru.fbtw.jacarandaserver.api.requests.HttpRequest;
 import ru.fbtw.jacarandaserver.api.requests.HttpResponse;
 import ru.fbtw.jacarandaserver.api.requests.enums.HttpMethod;
 
-public interface Hook<T> {
-	T hang(HttpRequest request, HttpResponse.HttpResponseBuilder responseBuilder);
-
-	String getHookMapping();
+public interface Hook {
+	void hang(HttpRequest request, HttpResponse.HttpResponseBuilder responseBuilder);
 
 	boolean hasMethodSupport(HttpMethod method);
 }

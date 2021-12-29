@@ -4,12 +4,14 @@ import java.util.Optional;
 
 public enum ContentType {
 	// text
+
 	HTML("text/html", ".+\\.(html|htm)"),
 	CSS("text/css", ".+\\.css"),
 	XML("text/xml", ".+\\.xml"),
 	// application
 	JSON("application/json", ".+\\.json"),
 	JAVASCRIPT("application/javascript", ".+\\.js"),
+	X_WWW_FORM_URLENCODED("application/x-www-form-urlencoded",""),
 	// image
 	JPEG("image/jpeg", ".+\\.(jpg|jfif|jpe|jpeg)"),
 	PNG("image/png", ".+\\.(png|PNG)"),

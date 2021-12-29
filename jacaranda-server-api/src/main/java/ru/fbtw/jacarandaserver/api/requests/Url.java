@@ -1,9 +1,8 @@
 package ru.fbtw.jacarandaserver.api.requests;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import ru.fbtw.util.ListUtils;
+
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Url {
@@ -13,7 +12,7 @@ public class Url {
 	private String host;
 	private String port;
 	private String contextPath;
-	private final Map<String, String> queryParams;
+	private final Map<String, List<String>> queryParams;
 	private String anchor;
 
 	private Url() {
@@ -23,7 +22,6 @@ public class Url {
 	public Url(String protocol, String authority, String host, String contextPath) {
 		this();
 		this.protocol = protocol;
-
 
 
 		int portSeparator;
@@ -49,11 +47,11 @@ public class Url {
 			this.contextPath = pathWithQuery.substring(0, querySeparator);
 			String[] queryPairs = pathWithQuery.substring(querySeparator + 1).split("&");
 
-			Map<String, String> queryMap = Arrays.stream(queryPairs)
+			Map<String, List<String>> queryMap = Arrays.stream(queryPairs)
 					.collect(Collectors.toMap(
 							str -> str.substring(0, str.indexOf('=')),
-							str -> str.substring(str.indexOf('=') + 1).trim(),
-							(oldVal, newVal) -> newVal
+							str -> Collections.singletonList(str.substring(str.indexOf('=') + 1).trim()),
+							ListUtils::mergeLists
 					));
 
 			this.queryParams.putAll(queryMap);
@@ -114,7 +112,7 @@ public class Url {
 		return contextPath;
 	}
 
-	public Map<String, String> getQueryParams() {
+	public Map<String, List<String>> getQueryParams() {
 		return queryParams;
 	}
 
@@ -158,16 +156,24 @@ public class Url {
 			return this;
 		}
 
-		public UrlBuilder addQueryParams(Map<String, String> queryParams) {
-			Url.this.queryParams
-					.putAll(queryParams);
+		public UrlBuilder addQueryParams(Map<String, List<String>> queryParams) {
+			// todo fix
+			queryParams.forEach((k, v) -> v.forEach(q -> addQueryParam(k, q)));
+			return this;
+		}
 
+		public UrlBuilder addQueryParamsRaw(Map<String, String> queryParams) {
+			queryParams.forEach(this::addQueryParam);
 			return this;
 		}
 
 		public UrlBuilder addQueryParam(String key, String value) {
-			Url.this.queryParams
-					.put(key, value);
+			List<String> list = queryParams.get(key);
+			if (list == null) {
+				queryParams.put(key, Collections.singletonList(value));
+			} else {
+				queryParams.put(key, ListUtils.mergeLists(list, Collections.singletonList(value)));
+			}
 
 			return this;
 		}
