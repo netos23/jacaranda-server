@@ -41,8 +41,4 @@ public abstract class AbstractSingleHook<T> implements Hook {
 
 
 
-	@Override
-	public boolean hasMethodSupport(HttpMethod method) {
-		return this.method.equals(method);
-	}
 }

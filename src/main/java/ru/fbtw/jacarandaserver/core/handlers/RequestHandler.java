@@ -57,7 +57,7 @@ public interface RequestHandler {
 
 		setServerConfiguration(context, request, responseBuilder);
 		handleUrl(request.getUrl(), request, responseBuilder);
-		handleQueryParams(request.getUrl().getQueryParams(), request, responseBuilder);
+		//handleQueryParams(request.getUrl().getQueryParams(), request, responseBuilder);
 		handleHeaders(request.getHeaders(), request, responseBuilder);
 		handleBody(request.getBody(), request, responseBuilder);
 

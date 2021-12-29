@@ -2,15 +2,20 @@ package ru.fbtw.jacarandaserver.sage.controller.hook;
 
 import ru.fbtw.jacarandaserver.api.requests.HttpRequest;
 import ru.fbtw.jacarandaserver.api.requests.HttpResponse;
+import ru.fbtw.jacarandaserver.api.requests.enums.ContentType;
+import ru.fbtw.jacarandaserver.api.requests.enums.HttpHeader;
 import ru.fbtw.jacarandaserver.api.requests.enums.HttpMethod;
 import ru.fbtw.jacarandaserver.sage.controller.request.providers.RequestProvider;
 import ru.fbtw.jacarandaserver.sage.view.AbstractRestPresenter;
 
+
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Set;
 import java.util.function.Function;
 
 public class RestHook implements Hook{
-	private final HttpMethod method;
+	private final Set<HttpMethod> method;
 	private final RequestProvider[] requestProviders;
 	private final Function<Object[], Object> callback;
 	private final AbstractRestPresenter<Object> presenter;
@@ -21,7 +26,7 @@ public class RestHook implements Hook{
 			Function<Object[], Object> callback,
 			AbstractRestPresenter<Object> presenter
 	) {
-		this.method = method;
+		this.method = Collections.singleton(method);
 		this.requestProviders = requestProviders;
 		this.callback = callback;
 		this.presenter = presenter;
@@ -37,12 +42,12 @@ public class RestHook implements Hook{
 		Object hookResponse = callback.apply(signature);
 		byte[] serializedBody = presenter.present(hookResponse);
 		responseBuilder.setBody(serializedBody);
+		responseBuilder.addHeader(HttpHeader.CONTENT_TYPE.getHeaderName(), ContentType.JSON.getValue());
 	}
-
-
 
 	@Override
-	public boolean hasMethodSupport(HttpMethod method) {
-		return this.method.equals(method);
+	public Set<HttpMethod> getSupportedMethods() {
+		return method;
 	}
+
 }

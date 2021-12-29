@@ -8,7 +8,6 @@ import java.lang.annotation.Annotation;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public final class BeanRegistry {
@@ -31,7 +30,7 @@ public final class BeanRegistry {
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> List<T> getAllBeansByClass(Class<T> clazz) throws NoSuchBeanException{
+	public <T> List<T> getAllBeansByClass(Class<T> clazz) throws NoSuchBeanException {
 		return classEntry.getAllBeansByClass(clazz)
 				.stream()
 				.map(obj -> (T) obj)
@@ -39,8 +38,28 @@ public final class BeanRegistry {
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> T getAnyBeanByClass(Class<T> clazz) throws NoSuchBeanException{
+	public <T> T getAnyBeanByClass(Class<T> clazz) throws NoSuchBeanException {
 		return (T) classEntry.getAnyByClass(clazz);
+	}
+
+
+	@SuppressWarnings("unchecked")
+	public <T> List<T> getAllNullableBeansByClass(Class<T> clazz)  {
+		List<Object> allNullableBeansByClass = classEntry.getAllNullableBeansByClass(clazz);
+
+		if(allNullableBeansByClass == null){
+			return null;
+		}
+
+		return allNullableBeansByClass
+				.stream()
+				.map(obj -> (T) obj)
+				.collect(Collectors.toList());
+	}
+
+	@SuppressWarnings("unchecked")
+	public <T> T getAnyNullableBeanByClass(Class<T> clazz) {
+		return (T) classEntry.getAnyNullableByClass(clazz);
 	}
 
 	public List<Object> getAllBeansByAnnotatedType(Class<? extends Annotation> annotation) throws NoSuchBeanException {
@@ -49,6 +68,16 @@ public final class BeanRegistry {
 
 	public Object getAnyBeanByAnnotatedType(Class<? extends Annotation> annotation) throws NoSuchBeanException {
 		return annotationEntry.getAnyByClass(annotation);
+	}
+
+	public List<Object> getAllNullableBeansByAnnotatedType(Class<? extends Annotation> annotation)
+			throws NoSuchBeanException {
+		return annotationEntry.getAllNullableBeansByClass(annotation);
+	}
+
+	public Object getAnyNullableBeanByAnnotatedType(Class<? extends Annotation> annotation)
+			throws NoSuchBeanException {
+		return annotationEntry.getAnyNullableByClass(annotation);
 	}
 
 	private static BeanRegistryEntry getClassBeanRegistryEntry(Map<Class<?>, List<BeanTemplate>> beanMap) {
@@ -88,7 +117,7 @@ public final class BeanRegistry {
 			this.storage = storage;
 		}
 
-		public Object getAnyByClass(Class<?> clazz) throws NoSuchBeanException{
+		private Object getAnyByClass(Class<?> clazz) throws NoSuchBeanException {
 			List<Object> beanList = getAllBeansByClass(clazz);
 			return beanList.get(0);
 		}
@@ -99,6 +128,17 @@ public final class BeanRegistry {
 				throw new NoSuchBeanException(clazz);
 			}
 			return beanList;
+		}
+
+		private Object getAnyNullableByClass(Class<?> clazz)  {
+			List<Object> beanList = getAllNullableBeansByClass(clazz);
+			return beanList != null && !beanList.isEmpty()
+					? beanList.get(0)
+					: null;
+		}
+
+		private List<Object> getAllNullableBeansByClass(Class<?> clazz){
+			return storage.get(clazz);
 		}
 	}
 }

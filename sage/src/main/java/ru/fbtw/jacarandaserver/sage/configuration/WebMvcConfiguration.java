@@ -25,7 +25,7 @@ public class WebMvcConfiguration {
 	}
 
 	protected void configureTemplates(Configuration configuration) throws IOException {
-		configuration.setClassForTemplateLoading(this.getClass(), "/tamplates/");
+		configuration.setClassForTemplateLoading(WebMvcConfiguration.class, "/tamplates/");
 		configuration.setDefaultEncoding("UTF-8");
 		configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
 		configuration.setLogTemplateExceptions(false);
@@ -37,8 +37,8 @@ public class WebMvcConfiguration {
 
 	}
 
-	public String getRequestPrefix() {
-		return "";
+	public String getRootPath() {
+		return "/";
 	}
 
 

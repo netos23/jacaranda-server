@@ -13,4 +13,14 @@ public interface Filter {
 			next.doFilter(request, responseBuilder);
 		};
 	}
+
+
+	static Filter compose(Filter first, Filter second) {
+		return first.andThen(second);
+	}
+
+	static Filter empty() {
+		return (request, responseBuilder) -> {
+		};
+	}
 }

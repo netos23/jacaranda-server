@@ -1,15 +1,13 @@
 package ru.fbtw.controller;
 
-import ru.fbtw.configuration.AsciiConverterMvcConfiguration;
 import ru.fbtw.jacarandaserver.sage.bean.annotation.Controller;
-import ru.fbtw.jacarandaserver.sage.controller.mapping.GetMapping;
-import ru.fbtw.jacarandaserver.sage.controller.mapping.PostMapping;
-import ru.fbtw.jacarandaserver.sage.controller.mapping.RequestMapping;
+import ru.fbtw.jacarandaserver.sage.controller.mapping.annotation.GetMapping;
+import ru.fbtw.jacarandaserver.sage.controller.mapping.annotation.PostMapping;
+import ru.fbtw.jacarandaserver.sage.controller.mapping.annotation.RequestMapping;
 import ru.fbtw.jacarandaserver.sage.controller.request.annotation.RequestParam;
 import ru.fbtw.jacarandaserver.sage.view.Model;
 import ru.fbtw.service.ConverterService;
 
-import javax.lang.model.element.Name;
 import java.util.List;
 
 @Controller

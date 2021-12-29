@@ -133,7 +133,7 @@ public final class BeanRegistryLoader {
 
 	private Constructor<?> getBeanConstructor(BeanTemplate beanTemplate) {
 		Constructor<?>[] constructors = beanTemplate.getClazz()
-				.getConstructors();
+				.getDeclaredConstructors();
 		if (constructors.length != 1) {
 			throw new BeanCreationException(beanTemplate.getClazz(), null);
 		}

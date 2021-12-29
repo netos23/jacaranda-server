@@ -2,19 +2,19 @@ package ru.fbtw.jacarandaserver.sage.controller.hook;
 
 import ru.fbtw.jacarandaserver.api.requests.HttpRequest;
 import ru.fbtw.jacarandaserver.api.requests.HttpResponse;
+import ru.fbtw.jacarandaserver.api.requests.enums.ContentType;
+import ru.fbtw.jacarandaserver.api.requests.enums.HttpHeader;
 import ru.fbtw.jacarandaserver.api.requests.enums.HttpMethod;
 import ru.fbtw.jacarandaserver.sage.controller.request.providers.RequestProvider;
 import ru.fbtw.jacarandaserver.sage.view.DataModelWithView;
 import ru.fbtw.jacarandaserver.sage.view.Model;
 import ru.fbtw.jacarandaserver.sage.view.ViewPresenter;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 
 public class MvcHook implements Hook {
-	private final HttpMethod method;
+	private final Set<HttpMethod> method;
 	private final RequestProvider[] requestProviders;
 	private final Function<Object[], Object> callback;
 	private final ViewPresenter<DataModelWithView> presenter;
@@ -25,7 +25,7 @@ public class MvcHook implements Hook {
 			Function<Object[], Object> callback,
 			ViewPresenter<DataModelWithView> presenter
 	) {
-		this.method = method;
+		this.method = Collections.singleton(method);
 		this.requestProviders = requestProviders;
 		this.callback = callback;
 		this.presenter = presenter;
@@ -42,10 +42,13 @@ public class MvcHook implements Hook {
 		DataModelWithView dataModelWithView = new DataModelWithView(hookResponse, dataModel);
 		byte[] serializedBody = presenter.present(dataModelWithView);
 		responseBuilder.setBody(serializedBody);
+		responseBuilder.addHeader(HttpHeader.CONTENT_TYPE.getHeaderName(), ContentType.HTML.getValue());
 	}
 
 	@Override
-	public boolean hasMethodSupport(HttpMethod method) {
-		return this.method.equals(method);
+	public Set<HttpMethod> getSupportedMethods() {
+		return method;
 	}
+
+
 }

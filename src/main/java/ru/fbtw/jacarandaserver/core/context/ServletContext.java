@@ -14,6 +14,7 @@ import ru.fbtw.jacarandaserver.core.context.filters.HostFilter;
 import ru.fbtw.jacarandaserver.core.context.filters.HttpConfigurationFilter;
 import ru.fbtw.jacarandaserver.core.context.internalservlet.InternalServlet;
 import ru.fbtw.jacarandaserver.core.context.resolvers.KeepAliveResolver;
+import ru.fbtw.jacarandaserver.sage.app.ServletFacade;
 
 public class ServletContext {
 	private final ServerConfiguration configuration;
@@ -25,7 +26,7 @@ public class ServletContext {
 
 	public static ServletContext createContext(ServerConfiguration configuration) {
 
-		Servlet internalServlet = new InternalServlet(configuration);
+		Servlet internalServlet = new ServletFacade();
 		ServletMappingHandler mappingHandler = new ServletMappingHandler();
 		DispatcherServlet dispatcherServlet = new DispatcherServlet(internalServlet, mappingHandler);
 

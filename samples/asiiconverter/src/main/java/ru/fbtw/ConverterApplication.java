@@ -1,10 +1,10 @@
 package ru.fbtw;
 
-import ru.fbtw.jacarandaserver.sage.SageApplication;
-import ru.fbtw.jacarandaserver.sage.bean.internal.BeanRegistryLoader;
+import ru.fbtw.jacarandaserver.sage.app.SageApplication;
+import ru.fbtw.jacarandaserver.sage.app.SageApplicationLoader;
 
 public class ConverterApplication {
 	public static void main(String[] args) {
-		SageApplication.createSageApp();
+		SageApplication sageApp = SageApplicationLoader.createSageApp();
 	}
 }

@@ -1,6 +1,6 @@
 package ru.fbtw.jacarandaserver.api.requests.exceptions;
 
-public class BadRequestException extends Exception {
+public class BadRequestException extends RuntimeException {
 	public BadRequestException() {
 	}
 

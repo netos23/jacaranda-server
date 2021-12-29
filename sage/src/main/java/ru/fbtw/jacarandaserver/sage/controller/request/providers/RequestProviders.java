@@ -2,6 +2,7 @@ package ru.fbtw.jacarandaserver.sage.controller.request.providers;
 
 import ru.fbtw.jacarandaserver.api.requests.enums.ContentType;
 import ru.fbtw.jacarandaserver.api.requests.enums.HttpHeader;
+import ru.fbtw.jacarandaserver.api.requests.exceptions.BadRequestException;
 import ru.fbtw.jacarandaserver.sage.bean.annotation.Component;
 import ru.fbtw.jacarandaserver.sage.controller.exception.IllegalAnnotationCombinationException;
 import ru.fbtw.jacarandaserver.sage.controller.exception.MissingProviderException;
@@ -92,7 +93,7 @@ public class RequestProviders {
 			String header = request.getHeader(HttpHeader.CONTENT_TYPE.getHeaderName());
 			Optional<ContentType> contentType = ContentType.getContentType(header);
 			if (!contentType.isPresent()) {
-				throw new IllegalArgumentException("Missing or illegal content type");
+				throw new BadRequestException("Missing or illegal content type");
 			}
 			return resolverMap.get(contentType.get()).resolve(request.getBody(), type);
 		};
@@ -133,7 +134,9 @@ public class RequestProviders {
 					provider = getAllRequestParamsProvider();
 
 				} else {
-					throw new IllegalAnnotationCombinationException();
+					throw new IllegalAnnotationCombinationException(
+							"@AllQueryParams require signature Map<String, Object>"
+					);
 				}
 			}
 
@@ -182,11 +185,11 @@ public class RequestProviders {
 		}
 
 		if (provider == null) {
-			throw new MissingProviderException();
+			throw new MissingProviderException(param.toString());
 		}
 
 		if (providersCount != 1) {
-			throw new IllegalAnnotationCombinationException();
+			throw new IllegalAnnotationCombinationException(param.toString());
 		}
 
 		return provider;
