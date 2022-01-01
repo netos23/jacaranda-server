@@ -2,6 +2,7 @@ package ru.fbtw.jacarandaserver.core.server;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.fbtw.jacarandaserver.core.bootloader.ServletWatcher;
 import ru.fbtw.jacarandaserver.core.context.ServletContext;
 import ru.fbtw.jacarandaserver.core.context.configuration.ServerConfiguration;
 
@@ -28,11 +29,13 @@ public class HttpServer {
 
 		mainSocket = new ServerSocket(configuration.getPort());
 		executor = Executors.newFixedThreadPool(configuration.getMaxConnections());
+
 		logger.info("Listen up to {} connections", configuration.getMaxConnections());
 	}
 
 	public void start() throws IOException {
 		bindShutdownHook();
+		bindServletWatcher();
 		logger.info("Server listening port {}", context.getConfiguration().getPort());
 
 		while (!Thread.currentThread().isInterrupted()) {
@@ -41,6 +44,14 @@ public class HttpServer {
 			executor.execute(handler);
 		}
 
+	}
+
+	private void bindServletWatcher() {
+		logger.debug("Bind servlet watcher");
+		ServletWatcher servletWatcher = new ServletWatcher(
+				context.getConfiguration().getPath(),
+				context.getMappingHandler());
+		executor.execute(servletWatcher);
 	}
 
 	private void bindShutdownHook() {

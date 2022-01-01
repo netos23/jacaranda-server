@@ -5,4 +5,6 @@ import ru.fbtw.jacarandaserver.api.requests.HttpResponse;
 
 public interface Servlet {
 	void service(final HttpRequest request, final HttpResponse.HttpResponseBuilder responseBuilder);
+
+	String getRootPath();
 }

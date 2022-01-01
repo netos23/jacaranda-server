@@ -40,7 +40,7 @@ public class ServletContext {
 			}
 			return null;
 		};
-		Resolver<Boolean> resolver = new KeepAliveResolver("close", true);
+		Resolver<Boolean> resolver = new KeepAliveResolver("Keep-alive", true);
 		return new ServletContext(
 				configuration,
 				dispatcherServlet,

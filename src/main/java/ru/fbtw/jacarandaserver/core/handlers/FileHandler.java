@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
+@Deprecated
 public class FileHandler {
     private static final Logger logger = LoggerFactory.getLogger(FileHandler.class);
 

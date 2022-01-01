@@ -5,12 +5,14 @@ import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateExceptionHandler;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class WebMvcConfiguration {
 
+	public static final String TAMPLATES = "/templates/";
 	private final Map<String, String> resourceHandlerRegistry;
 	private final Configuration templateConfig;
 
@@ -25,7 +27,8 @@ public class WebMvcConfiguration {
 	}
 
 	protected void configureTemplates(Configuration configuration) throws IOException {
-		configuration.setClassForTemplateLoading(WebMvcConfiguration.class, "/tamplates/");
+		configuration.setClassForTemplateLoading(WebMvcConfiguration.class, TAMPLATES);
+		configuration.setDirectoryForTemplateLoading(new File("." + TAMPLATES));
 		configuration.setDefaultEncoding("UTF-8");
 		configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
 		configuration.setLogTemplateExceptions(false);

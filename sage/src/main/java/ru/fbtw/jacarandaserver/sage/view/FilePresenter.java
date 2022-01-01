@@ -1,11 +1,13 @@
 package ru.fbtw.jacarandaserver.sage.view;
 
+import ru.fbtw.jacarandaserver.sage.bean.annotation.Component;
 import ru.fbtw.jacarandaserver.sage.view.exception.ViewNotFoundException;
 import ru.fbtw.util.io.IOUtils;
 
 import java.io.File;
 import java.io.IOException;
 
+@Component
 public class FilePresenter implements ViewPresenter<String> {
 
 	@Override

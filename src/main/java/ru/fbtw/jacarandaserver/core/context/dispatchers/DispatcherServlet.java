@@ -7,6 +7,7 @@ import ru.fbtw.jacarandaserver.api.requests.HttpResponse;
 import ru.fbtw.jacarandaserver.api.serverlet.Servlet;
 import ru.fbtw.jacarandaserver.core.server.HttpServer;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -26,6 +27,11 @@ public class DispatcherServlet implements Servlet {
 		Optional<Servlet> optionalServlet = mappingHandler.getServlet(request.getUrl().getContextPath());
 		Servlet servlet = optionalServlet.orElse(defaultServlet);
 		servlet.service(request, responseBuilder);
+	}
+
+	@Override
+	public String getRootPath() {
+		throw new UnsupportedOperationException();
 	}
 
 	public Servlet getDefaultServlet() {

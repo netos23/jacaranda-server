@@ -49,7 +49,7 @@ public final class SageApplication {
 						"Can`t resolve mapping for path: " + request.getUrl().getContextPath()
 				);
 			}
-
+			hook.hang(request, httpResponseBuilder);
 			afterRequestFilterChain.doFilter(request, httpResponseBuilder);
 		} catch (Exception ex) {
 			exceptionHandlerRegistry.handle(ex, httpResponseBuilder);

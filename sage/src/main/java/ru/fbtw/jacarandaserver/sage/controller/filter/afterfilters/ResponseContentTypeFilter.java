@@ -1,4 +1,4 @@
-package ru.fbtw.jacarandaserver.sage.controller.filter.prefilters;
+package ru.fbtw.jacarandaserver.sage.controller.filter.afterfilters;
 
 import ru.fbtw.jacarandaserver.api.requests.HttpRequest;
 import ru.fbtw.jacarandaserver.api.requests.HttpResponse;
@@ -12,7 +12,7 @@ public class ResponseContentTypeFilter implements AfterRequestFilter {
 	@Override
 	public void doFilter(HttpRequest request, HttpResponse.HttpResponseBuilder responseBuilder)
 			throws BadRequestException {
-		String header = request.getHeader(HttpHeader.CONTENT_TYPE.getHeaderName());
+		String header = responseBuilder.getHeader(HttpHeader.CONTENT_TYPE.getHeaderName());
 		if (header == null) {
 			throw new MissingContentTypeException("Response content type missing");
 		}
