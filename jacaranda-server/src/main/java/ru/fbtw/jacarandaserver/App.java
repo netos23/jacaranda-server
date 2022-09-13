@@ -12,8 +12,6 @@ public class App {
 	public static void main(String[] args) throws IOException {
 //		ServletBootloader servletBootloader = new ServletBootloader(null, Arrays.asList(""));
 //		servletBootloader.load(".");
-		String[] split = "/pi/".split("/");
-		System.out.println(split.length);
 		ServerConfiguration config = Configurations.readConfig(args, ServerConfiguration.class, null);
 
 		HttpServer server = new HttpServer(config);
