@@ -10,8 +10,6 @@ import java.io.IOException;
 
 public class App {
 	public static void main(String[] args) throws IOException {
-//		ServletBootloader servletBootloader = new ServletBootloader(null, Arrays.asList(""));
-//		servletBootloader.load(".");
 		ServerConfiguration config = Configurations.readConfig(args, ServerConfiguration.class, null);
 
 		HttpServer server = new HttpServer(config);

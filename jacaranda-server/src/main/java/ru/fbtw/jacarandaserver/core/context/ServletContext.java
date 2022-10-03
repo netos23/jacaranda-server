@@ -12,13 +12,13 @@ import ru.fbtw.jacarandaserver.core.context.dispatchers.DispatcherServlet;
 import ru.fbtw.jacarandaserver.core.context.dispatchers.ServletMappingHandler;
 import ru.fbtw.jacarandaserver.core.context.filters.HostFilter;
 import ru.fbtw.jacarandaserver.core.context.filters.HttpConfigurationFilter;
-import ru.fbtw.jacarandaserver.core.context.internalservlet.InternalServlet;
 import ru.fbtw.jacarandaserver.core.context.resolvers.KeepAliveResolver;
 import ru.fbtw.jacarandaserver.sage.app.ServletFacade;
 
 public class ServletContext {
 	private final ServerConfiguration configuration;
-	private final DispatcherServlet dispatcherServlet;
+	private final ServletMappingHandler mappingHandler;
+	private final Servlet dispatcherServlet;
 	private final Filter preRequestFilterChain;
 	private final Filter afterRequestFilterChain;
 	private final ExceptionHandler exceptionHandler;
@@ -28,7 +28,7 @@ public class ServletContext {
 
 		Servlet internalServlet = new ServletFacade();
 		ServletMappingHandler mappingHandler = new ServletMappingHandler();
-		DispatcherServlet dispatcherServlet = new DispatcherServlet(internalServlet, mappingHandler);
+		Servlet dispatcherServlet = new DispatcherServlet(internalServlet, mappingHandler);
 
 		Filter hostFilter = new HostFilter();
 		Filter configurationFilter = new HttpConfigurationFilter(configuration);
@@ -43,6 +43,7 @@ public class ServletContext {
 		Resolver<Boolean> resolver = new KeepAliveResolver("close", true);
 		return new ServletContext(
 				configuration,
+				mappingHandler,
 				dispatcherServlet,
 				hostFilter,
 				configurationFilter,
@@ -53,13 +54,14 @@ public class ServletContext {
 
 	private ServletContext(
 			ServerConfiguration configuration,
-			DispatcherServlet dispatcherServlet,
+			ServletMappingHandler mappingHandler, Servlet dispatcherServlet,
 			Filter preRequestFilterChain,
 			Filter afterRequestFilterChain,
 			ExceptionHandler exceptionHandler,
 			Resolver<Boolean> keepAliveResolver
 	) {
 		this.configuration = configuration;
+		this.mappingHandler = mappingHandler;
 		this.dispatcherServlet = dispatcherServlet;
 		this.preRequestFilterChain = preRequestFilterChain;
 		this.afterRequestFilterChain = afterRequestFilterChain;
@@ -69,14 +71,6 @@ public class ServletContext {
 
 	public ServerConfiguration getConfiguration() {
 		return configuration;
-	}
-
-	public ServletMappingHandler getMappingHandler() {
-		return dispatcherServlet.getMappingHandler();
-	}
-
-	public Servlet getInternalServlet() {
-		return dispatcherServlet.getDefaultServlet();
 	}
 
 	public Filter getPreRequestFilterChain() {
@@ -91,11 +85,15 @@ public class ServletContext {
 		return exceptionHandler;
 	}
 
-	public DispatcherServlet getDispatcherServlet() {
+	public Servlet getDispatcherServlet() {
 		return dispatcherServlet;
 	}
 
 	public Resolver<Boolean> getKeepAliveResolver() {
 		return keepAliveResolver;
+	}
+
+	public ServletMappingHandler getMappingHandler() {
+		return mappingHandler;
 	}
 }
