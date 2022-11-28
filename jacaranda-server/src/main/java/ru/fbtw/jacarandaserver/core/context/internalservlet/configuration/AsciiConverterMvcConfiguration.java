@@ -18,6 +18,6 @@ public class AsciiConverterMvcConfiguration extends WebMvcConfiguration {
 	@Override
 	protected void configureResourceHandlers(Map<String, String> resourceHandlerRegistry) {
 		super.configureResourceHandlers(resourceHandlerRegistry);
-		resourceHandlerRegistry.put("/resources/", "/");
+		resourceHandlerRegistry.put("/assets/", "/");
 	}
 }
