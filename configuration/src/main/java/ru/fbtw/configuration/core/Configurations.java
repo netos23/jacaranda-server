@@ -18,7 +18,7 @@ public class Configurations {
 				? config.src()
 				: Configuration.DEFAULT_SRC;
 
-		String internalPath = "classpath:" + filename;
+		String internalPath = "/" + filename;
 		String externalPAth = "./" + filename;
 
 		try {
@@ -28,10 +28,9 @@ public class Configurations {
 			result.addAll(defaultConfig);
 
 			try {
-				T internalConfig = ConfigurationFactory.fromFile(clazz, internalPath);
+				T internalConfig = ConfigurationFactory.fromResources(clazz, internalPath);
 				result.add(internalConfig);
 			} catch (IOException | ConfigurationBuildException | NoSuchMethodException e) {
-				e.printStackTrace();
 				logger.error("Cant read internal config");
 			}
 

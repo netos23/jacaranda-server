@@ -1,12 +1,14 @@
 package ru.fbtw.configuration.core;
 
-import ru.fbtw.util.io.IOUtils;
 import ru.fbtw.util.Pair;
-import ru.fbtw.util.reflect.PrimitiveFactory;
 import ru.fbtw.util.exceptions.MissingFactory;
+import ru.fbtw.util.io.IOUtils;
+import ru.fbtw.util.reflect.PrimitiveFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +29,18 @@ public class ConfigurationReader {
 	 * @throws IOException if specified file don`t found
 	 */
 	static Map<String, String> readFileConfig(final File file) throws IOException {
-		String[] args = IOUtils.readAllStrings(file)
+		return readInputStreamConfig(Files.newInputStream(file.toPath()));
+	}
+
+	/**
+	 * Read matching Strings from inputStream and convert them into Map
+	 *
+	 * @param inputStream data source
+	 * @return Map of keys and values matching specified pattern
+	 * @throws IOException if specified file don`t found
+	 */
+	static Map<String, String> readInputStreamConfig(final InputStream inputStream) throws IOException {
+		String[] args = new String(IOUtils.readAllBytes(inputStream))
 				.split("\n");
 
 		return readConfig(args, FILE_PATTERN, 0);
@@ -71,6 +84,11 @@ public class ConfigurationReader {
 		};
 	}
 
+	public static ConfigurationReader formInputStream(InputStream inputStream) throws IOException {
+		Map<String, String> config = readInputStreamConfig(inputStream);
+		return new ConfigurationReader(config);
+	}
+
 	public static ConfigurationReader formFile(File file) throws IOException {
 		Map<String, String> config = readFileConfig(file);
 		return new ConfigurationReader(config);
@@ -110,7 +128,7 @@ public class ConfigurationReader {
 	public Map<String, String> getSubConfig(List<String> names) {
 		return names.stream()
 				.map(n -> new Pair<>(n, configMap.get(n)))
-				.collect(Collectors.toMap(Pair::getKey,Pair::getValue));
+				.collect(Collectors.toMap(Pair::getKey, Pair::getValue));
 	}
 
 

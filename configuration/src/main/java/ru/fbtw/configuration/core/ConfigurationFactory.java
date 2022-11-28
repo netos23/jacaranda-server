@@ -7,9 +7,9 @@ import ru.fbtw.configuration.exceptions.ConfigurationBuildException;
 import ru.fbtw.configuration.exceptions.MissingConfiguration;
 import ru.fbtw.util.reflect.Reflections;
 
-
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Objects;
@@ -28,6 +28,16 @@ public class ConfigurationFactory {
 			throws IOException, NoSuchMethodException, ConfigurationBuildException {
 		File file = new File(path);
 		return fromFile(clazz, file);
+	}
+
+	public static <T> T fromResources(Class<T> clazz, String name)
+			throws IOException, NoSuchMethodException, ConfigurationBuildException {
+
+		try (InputStream inputStream = clazz.getResourceAsStream(name)) {
+			ConfigurationReader reader = ConfigurationReader.formInputStream(inputStream);
+			return fromReader(clazz, reader);
+		}
+
 	}
 
 	public static <T> T fromFile(Class<T> clazz, File file)
