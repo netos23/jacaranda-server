@@ -1,7 +1,6 @@
 package ru.fbtw.jacarandaserver.sage.configuration;
 
 
-import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateExceptionHandler;
 
@@ -12,7 +11,7 @@ import java.util.Map;
 
 public class WebMvcConfiguration {
 
-	public static final String TAMPLATES = "/templates/";
+	public static final String TEMPLATES = "/templates/";
 	private final Map<String, String> resourceHandlerRegistry;
 	private final Configuration templateConfig;
 
@@ -27,8 +26,8 @@ public class WebMvcConfiguration {
 	}
 
 	protected void configureTemplates(Configuration configuration) throws IOException {
-		configuration.setClassForTemplateLoading(WebMvcConfiguration.class, TAMPLATES);
-		configuration.setDirectoryForTemplateLoading(new File("." + TAMPLATES));
+		configuration.setClassForTemplateLoading(WebMvcConfiguration.class, TEMPLATES);
+		configuration.setDirectoryForTemplateLoading(new File("." + TEMPLATES));
 		configuration.setDefaultEncoding("UTF-8");
 		configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
 		configuration.setLogTemplateExceptions(false);

@@ -5,14 +5,12 @@ import ru.fbtw.jacarandaserver.api.requests.HttpResponse;
 import ru.fbtw.jacarandaserver.api.requests.enums.ContentType;
 import ru.fbtw.jacarandaserver.api.requests.enums.HttpHeader;
 import ru.fbtw.jacarandaserver.api.requests.exceptions.BadRequestException;
-import ru.fbtw.jacarandaserver.sage.bean.annotation.Component;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-@Component
 public class ContentTypeRequestFilter implements PreRequestFilter {
 	private final Set<String> supportedTypes;
 

@@ -1,7 +1,6 @@
 package ru.fbtw.jacarandaserver.sage.controller.hook;
 
 import ru.fbtw.jacarandaserver.api.requests.enums.HttpMethod;
-import ru.fbtw.jacarandaserver.sage.bean.annotation.Component;
 import ru.fbtw.jacarandaserver.sage.controller.mapping.RequestMappingHandler;
 import ru.fbtw.jacarandaserver.sage.controller.request.providers.RequestProviders;
 import ru.fbtw.jacarandaserver.sage.view.DataModelWithView;
@@ -10,7 +9,6 @@ import ru.fbtw.jacarandaserver.sage.view.ViewPresenter;
 
 import java.lang.reflect.Method;
 
-@Component
 public class MvcHookFactory extends AbstractHookFactory {
 	private final ViewPresenter<DataModelWithView> presenter;
 

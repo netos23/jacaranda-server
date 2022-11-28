@@ -3,7 +3,6 @@ package ru.fbtw.jacarandaserver.sage.controller.request.providers;
 import ru.fbtw.jacarandaserver.api.requests.enums.ContentType;
 import ru.fbtw.jacarandaserver.api.requests.enums.HttpHeader;
 import ru.fbtw.jacarandaserver.api.requests.exceptions.BadRequestException;
-import ru.fbtw.jacarandaserver.sage.bean.annotation.Component;
 import ru.fbtw.jacarandaserver.sage.controller.exception.IllegalAnnotationCombinationException;
 import ru.fbtw.jacarandaserver.sage.controller.exception.MissingProviderException;
 import ru.fbtw.jacarandaserver.sage.controller.request.annotation.AllRequestParams;
@@ -26,7 +25,6 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-@Component
 public class RequestProviders {
 
 	private final Map<ContentType, ContentTypeResolver> resolverMap;

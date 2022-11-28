@@ -1,5 +1,6 @@
 package ru.fbtw.jacarandaserver.sage.bean.annotation;
 
+
 import ru.fbtw.jacarandaserver.sage.bean.internal.BeenComponent;
 
 import java.lang.annotation.ElementType;
