@@ -4,6 +4,7 @@ package ru.fbtw.jacarandaserver.sage.exception;
 import ru.fbtw.jacarandaserver.api.requests.HttpResponse;
 import ru.fbtw.jacarandaserver.api.requests.enums.ContentType;
 import ru.fbtw.jacarandaserver.api.requests.enums.HttpHeader;
+import ru.fbtw.jacarandaserver.api.requests.enums.HttpStatus;
 import ru.fbtw.jacarandaserver.sage.bean.annotation.Component;
 import ru.fbtw.jacarandaserver.sage.view.DataModelWithView;
 import ru.fbtw.jacarandaserver.sage.view.Model;
@@ -36,7 +37,14 @@ public class GenericExceptionHandlerRegistry {
 	public void handle(Exception ex, HttpResponse.HttpResponseBuilder responseBuilder) {
 		GenericExceptionHandlerBean genericExceptionHandlerBean
 				= exceptionHandlerMap.get(ex.getClass());
-		ExceptionResponseEntity exceptionResponse = genericExceptionHandlerBean.handle(ex);
+
+		ExceptionResponseEntity exceptionResponse;
+		if(genericExceptionHandlerBean == null){
+			exceptionResponse = handleInternal(ex,responseBuilder);
+		}else{
+			 exceptionResponse = genericExceptionHandlerBean.handle(ex);
+		}
+
 
 		Model model = new Model();
 		model.addAttribute("exceptionEntity", exceptionResponse);
@@ -46,5 +54,13 @@ public class GenericExceptionHandlerRegistry {
 		responseBuilder.setStatus(exceptionResponse.getStatus());
 		responseBuilder.setBody(body);
 		responseBuilder.addHeader(HttpHeader.CONTENT_TYPE.getHeaderName(), ContentType.HTML.getValue());
+	}
+
+	private ExceptionResponseEntity handleInternal(Exception ex, HttpResponse.HttpResponseBuilder responseBuilder) {
+		ex.printStackTrace();
+		return new ExceptionResponseEntity(
+				HttpStatus.INTERNAL_SERVER_ERROR,
+				"Internal server error occurred"
+		);
 	}
 }

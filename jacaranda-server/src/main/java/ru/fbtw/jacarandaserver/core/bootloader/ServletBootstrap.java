@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 
+@Deprecated
 public class ServletBootstrap implements Runnable {
 	private static final Logger logger = LoggerFactory.getLogger(ServletBootstrap.class);
 	public static final String JAR_SUFFIX = ".jar";

@@ -20,27 +20,40 @@ public class RequestMappingHandler {
 	}
 
 	public void addStaticHook(String path, Hook hook) {
-		Hook oldHook = staticHooks.get(path);
+		String actualPath = resolvePath(path);
+		Hook oldHook = staticHooks.get(actualPath);
 		if (oldHook == null) {
-			staticHooks.put(path, hook);
+			staticHooks.put(actualPath, hook);
 		} else {
 			CombinedHook combinedHook = new CombinedHook();
 			combinedHook.addHook(oldHook);
 			combinedHook.addHook(hook);
-			staticHooks.put(path, combinedHook);
+			staticHooks.put(actualPath, combinedHook);
 		}
 	}
 
 	public void addDynamicHook(String path, Hook hook) {
-		Hook oldHook = dynamicHookPathTree.get(path);
+		String actualPath = resolvePath(path);
+		Hook oldHook = dynamicHookPathTree.get(actualPath);
 		if (oldHook == null) {
-			dynamicHookPathTree.put(path, hook);
+			dynamicHookPathTree.put(actualPath, hook);
 		} else {
 			CombinedHook combinedHook = new CombinedHook();
 			combinedHook.addHook(oldHook);
 			combinedHook.addHook(hook);
-			dynamicHookPathTree.put(path, combinedHook);
+			dynamicHookPathTree.put(actualPath, combinedHook);
 		}
+	}
+
+	private String resolvePath(String path) {
+		String actualPath = path;
+		if (!path.endsWith("/")) {
+			actualPath += "/";
+		}
+		if (!path.startsWith("/")) {
+			actualPath = "/" + actualPath;
+		}
+		return actualPath;
 	}
 
 	public Hook resolve(String path) {

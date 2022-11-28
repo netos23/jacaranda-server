@@ -32,7 +32,7 @@ public class ResourceHandlerHook implements Hook {
 	public void hang(HttpRequest request, HttpResponse.HttpResponseBuilder responseBuilder) {
 		String contextPath = request.getUrl().getContextPath();
 		String relativePath = contextPath.substring(pathRoot.length());
-		byte[] file = presenter.present(relativePath);
+		byte[] file = presenter.present("." + resourceRoot + relativePath);
 		responseBuilder.setBody(file);
 		responseBuilder.addHeader(HttpHeader.CONTENT_TYPE.getHeaderName(), ContentType.resolve(relativePath));
 	}

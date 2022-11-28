@@ -1,4 +1,4 @@
-package ru.fbtw.jacarandaserver.sage.controller.filter.afterfilters;
+package ru.fbtw.jacarandaserver.sage.controller.filter.prefilters;
 
 import ru.fbtw.jacarandaserver.api.serverlet.Filter;
 

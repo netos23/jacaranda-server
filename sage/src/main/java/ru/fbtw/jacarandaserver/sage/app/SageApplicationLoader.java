@@ -25,7 +25,8 @@ import java.util.List;
 import java.util.Map;
 
 public final class SageApplicationLoader {
-	private SageApplicationLoader(){}
+	private SageApplicationLoader() {
+	}
 
 	private static final Logger logger = LoggerFactory.getLogger(SageApplicationLoader.class);
 
@@ -84,7 +85,7 @@ public final class SageApplicationLoader {
 					.getAnyBeanByClass(GenericExceptionHandlerRegistry.class);
 		} catch (NoSuchBeanException e) {
 			logger.error("Can`t load exception handler registry");
-			throw new SageApplicationCreationException("Required bean not found",e);
+			throw new SageApplicationCreationException("Required bean not found", e);
 		}
 		return exceptionHandlerRegistry;
 	}
@@ -104,10 +105,11 @@ public final class SageApplicationLoader {
 
 		for (Map.Entry<String, String> resourceHandlerEntry
 				: webMvcConfiguration.getResourceHandlerRegistry().entrySet()) {
+			String rootPath = webMvcConfiguration.getRootPath();
 			Hook hook = new ResourceHandlerHook(
 					filePresenter,
 					resourceHandlerEntry.getKey(),
-					resourceHandlerEntry.getValue()
+					rootPath.substring(0, rootPath.length() - 1) + resourceHandlerEntry.getValue()
 			);
 			mappingHandler.addDynamicHook(resourceHandlerEntry.getValue(), hook);
 		}

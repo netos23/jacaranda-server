@@ -1,7 +1,7 @@
 package ru.fbtw.jacarandaserver.sage.controller.filter;
 
 import ru.fbtw.jacarandaserver.sage.bean.annotation.Component;
-import ru.fbtw.jacarandaserver.sage.controller.filter.prefilters.AfterRequestFilter;
+import ru.fbtw.jacarandaserver.sage.controller.filter.afterfilters.AfterRequestFilter;
 
 import java.util.List;
 
