@@ -1,10 +1,11 @@
 package ru.fbtw;
 
-import ru.fbtw.jacarandaserver.sage.app.SageApplication;
-import ru.fbtw.jacarandaserver.sage.app.SageApplicationLoader;
+import ru.fbtw.jacarandaserver.SageAppStarter;
+
+import java.io.IOException;
 
 public class ConverterApplication {
-	public static void main(String[] args) {
-		SageApplication sageApp = SageApplicationLoader.createSageApp();
+	public static void main(String[] args) throws IOException {
+		SageAppStarter.start(args);
 	}
 }

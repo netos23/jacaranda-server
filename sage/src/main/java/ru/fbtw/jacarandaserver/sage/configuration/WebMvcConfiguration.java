@@ -27,7 +27,6 @@ public class WebMvcConfiguration {
 
 	protected void configureTemplates(Configuration configuration) throws IOException {
 		configuration.setClassForTemplateLoading(WebMvcConfiguration.class, TEMPLATES);
-		configuration.setDirectoryForTemplateLoading(new File("." + TEMPLATES));
 		configuration.setDefaultEncoding("UTF-8");
 		configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
 		configuration.setLogTemplateExceptions(false);

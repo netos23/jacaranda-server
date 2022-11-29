@@ -2,6 +2,7 @@ package ru.fbtw.jacarandaserver.core.server;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.fbtw.jacarandaserver.api.serverlet.Servlet;
 import ru.fbtw.jacarandaserver.core.bootloader.ServletBootloader;
 import ru.fbtw.jacarandaserver.core.bootloader.ServletBootstrap;
 import ru.fbtw.jacarandaserver.core.context.ServletContext;
@@ -36,6 +37,10 @@ public class HttpServer {
 		mainSocket = new ServerSocket(configuration.getPort());
 		executor = Executors.newFixedThreadPool(configuration.getMaxConnections());
 
+	}
+
+	public void addServlet(String path, Servlet servlet) {
+		context.getMappingHandler().addServlet(path, servlet);
 	}
 
 	public void start() throws IOException {
