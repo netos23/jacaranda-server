@@ -5,7 +5,6 @@ import ru.fbtw.jacarandaserver.api.serverlet.Servlet;
 import ru.fbtw.jacarandaserver.core.context.dispatchers.ServletMappingHandler;
 import ru.fbtw.util.packegescanner.SimplePackageScanner;
 import ru.fbtw.util.reflect.Reflections;
-import sun.tools.jar.resources.jar;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
