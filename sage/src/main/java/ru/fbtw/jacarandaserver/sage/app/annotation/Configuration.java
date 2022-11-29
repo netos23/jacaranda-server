@@ -1,5 +1,4 @@
-package ru.fbtw.jacarandaserver.sage.bean.annotation;
-
+package ru.fbtw.jacarandaserver.sage.app.annotation;
 
 import ru.fbtw.jacarandaserver.sage.bean.internal.BeenComponent;
 
@@ -11,5 +10,5 @@ import java.lang.annotation.Target;
 @BeenComponent
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Service {
+public @interface Configuration {
 }

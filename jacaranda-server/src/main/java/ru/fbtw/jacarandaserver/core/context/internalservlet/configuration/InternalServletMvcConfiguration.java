@@ -1,13 +1,13 @@
 package ru.fbtw.jacarandaserver.core.context.internalservlet.configuration;
 
-import ru.fbtw.jacarandaserver.sage.bean.annotation.Configuration;
+import ru.fbtw.jacarandaserver.sage.app.annotation.Configuration;
 import ru.fbtw.jacarandaserver.sage.configuration.WebMvcConfiguration;
 
 import java.util.Map;
 
 @Configuration
-public class AsciiConverterMvcConfiguration extends WebMvcConfiguration {
-	public AsciiConverterMvcConfiguration() {
+public class InternalServletMvcConfiguration extends WebMvcConfiguration {
+	public InternalServletMvcConfiguration() {
 	}
 
 	@Override

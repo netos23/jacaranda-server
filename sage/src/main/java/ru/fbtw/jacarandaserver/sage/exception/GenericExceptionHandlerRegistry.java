@@ -5,6 +5,7 @@ import ru.fbtw.jacarandaserver.api.requests.HttpResponse;
 import ru.fbtw.jacarandaserver.api.requests.enums.ContentType;
 import ru.fbtw.jacarandaserver.api.requests.enums.HttpHeader;
 import ru.fbtw.jacarandaserver.api.requests.enums.HttpStatus;
+import ru.fbtw.jacarandaserver.sage.bean.annotation.Component;
 import ru.fbtw.jacarandaserver.sage.view.DataModelWithView;
 import ru.fbtw.jacarandaserver.sage.view.Model;
 import ru.fbtw.jacarandaserver.sage.view.MvcViewPresenter;
@@ -12,7 +13,7 @@ import ru.fbtw.jacarandaserver.sage.view.MvcViewPresenter;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
+@Component
 public class GenericExceptionHandlerRegistry {
 	private final Map<Class<? extends Exception>, GenericExceptionHandlerBean> exceptionHandlerMap;
 	private final MvcViewPresenter viewPresenter;

@@ -1,7 +1,7 @@
 package ru.fbtw.service;
 
 
-import ru.fbtw.jacarandaserver.sage.bean.annotation.Service;
+import ru.fbtw.jacarandaserver.sage.app.annotation.Service;
 
 @Service
 public class ConverterService {

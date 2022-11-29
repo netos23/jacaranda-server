@@ -1,5 +1,6 @@
 package ru.fbtw.jacarandaserver.sage.controller.mapping;
 
+import ru.fbtw.jacarandaserver.sage.bean.annotation.Component;
 import ru.fbtw.jacarandaserver.sage.controller.hook.CombinedHook;
 import ru.fbtw.jacarandaserver.sage.controller.hook.Hook;
 import ru.fbtw.util.pathtree.PathTree;
@@ -7,7 +8,7 @@ import ru.fbtw.util.pathtree.PathTree;
 import java.util.HashMap;
 import java.util.Map;
 
-
+@Component
 public class RequestMappingHandler {
 	private final PathTree<Hook> dynamicHookPathTree;
 	private final Map<String, Hook> staticHooks;

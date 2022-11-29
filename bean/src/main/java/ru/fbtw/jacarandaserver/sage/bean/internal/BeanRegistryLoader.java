@@ -152,7 +152,7 @@ public final class BeanRegistryLoader {
 	}
 
 	private Stream<BeanTemplate> getBeanTemplateStream(List<Class<? extends Annotation>> beanDeclarationAnnotations) {
-		Configuration beanScannerConfig = new ConfigurationBuilder().forPackages(targetPackage);
+		Configuration beanScannerConfig = new ConfigurationBuilder().forPackages(DEFAULT_TARGET_PACKAGE);
 		Reflections beanScanner = new Reflections(beanScannerConfig);
 		Stream<BeanTemplate> beanTemplateStream = Stream.empty();
 
@@ -173,7 +173,7 @@ public final class BeanRegistryLoader {
 
 	private List<Class<? extends Annotation>> getBeanDeclarationAnnotations() {
 		Configuration beanAnnotationScannerConfig = new ConfigurationBuilder()
-				.forPackages(SAGE_BEEN_ANNOTATION_PACKAGE);
+				.forPackages(".","ru.fbtw.jacarandaserver");
 		Reflections beanAnnotationScanner = new Reflections(beanAnnotationScannerConfig);
 
 		@SuppressWarnings("unchecked")

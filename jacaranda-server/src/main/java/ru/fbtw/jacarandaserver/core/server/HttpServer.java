@@ -30,8 +30,8 @@ public class HttpServer {
 				configuration.getPath(), configuration.getHost(), configuration.getHttpVersion());
 
 		context = ServletContext.createContext(configuration);
-		bootloader = new ServletBootloader(context.getMappingHandler(), Collections.singletonList(""));
-		bootstrap = new Thread(new ServletBootstrap(bootloader, ".", 5000));
+		bootloader = new ServletBootloader(context.getMappingHandler(), Collections.singletonList("."));
+		bootstrap = new Thread(new ServletBootstrap(bootloader, "./servlets", 5000));
 
 		mainSocket = new ServerSocket(configuration.getPort());
 		executor = Executors.newFixedThreadPool(configuration.getMaxConnections());

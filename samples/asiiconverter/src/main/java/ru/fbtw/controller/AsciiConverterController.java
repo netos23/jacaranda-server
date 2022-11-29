@@ -1,6 +1,6 @@
 package ru.fbtw.controller;
 
-import ru.fbtw.jacarandaserver.sage.bean.annotation.Controller;
+import ru.fbtw.jacarandaserver.sage.app.annotation.Controller;
 import ru.fbtw.jacarandaserver.sage.controller.mapping.annotation.GetMapping;
 import ru.fbtw.jacarandaserver.sage.controller.mapping.annotation.PostMapping;
 import ru.fbtw.jacarandaserver.sage.controller.mapping.annotation.RequestMapping;
